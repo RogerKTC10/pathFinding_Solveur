@@ -13,6 +13,7 @@ NB : Ce projet sera réalisé en "Julia" et est présenter comme un projet de sc
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
                             ---°--MON IDEE DE PLAN DE TRAVAIL QUE JE VEUX SUIVRE--°---
+                                        ---°--MON DOSSIER "src/"--°---
 src/
 ├── Carte_Oper_Base/
 │   ├── charger_carte.jl (fonction: charger(); valider_chargement())
@@ -21,9 +22,12 @@ src/
 │
 ├── Solveur_Algos/(Mon dossier pour BFS, Dijkstra, A* avec les etudes préalables d'avance)
 │     ├── TasMin.jl (Va prendre en charge la recuperation du nœud ayant la plus petite valuations directement 
-│     │ au sommet de notre structure, ce qui va nous faire gagner en complexité(O(1)) par rapport à 
-│     │ d'autre algorithme comme celui des AVL. Seuls les algos A* et Djistkra auront besoin de l'utiliser.)
+│     │   au sommet de notre structure, ce qui va nous faire gagner en complexité(O(1)) par rapport à 
+│     │   d'autre algorithme comme celui des AVL. Seuls les algos A* et Djistkra auront besoin de l'utiliser.)
 │     │
-│     ├── Additional_action.jl (Les fonctions faisons référence au chemins et aux directions de marches en tenant compte des barières auquels on aura affaire.)
+│     ├── Additional_action.jl (Les fonctions faisons référence au chemins et aux directions de marches en 
+│     │   tenant compte des barières auquels on aura affaire.)
+│     │
 │     ├── Algorithme.jl( Implementer mes algorithmes.)
+│    
 └── main.jl( Le compilateur général.)
