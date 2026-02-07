@@ -2,14 +2,10 @@
 include("Carte_Operation/Charger_Carte.jl")
 
 function main()
-    path = "data/street-map/Berlin_O_256.map"   # ou un chemin absolu pour tester
-
+    path = "street-map/Berlin_0_256.map"
     elts = charger_valider(path)
-
-    println("Chargement réussi !")
-    println("Chemin : ", elts.path)
-    println("Contenu brut :")
-    println(elts.content)
+    println("Chargement OK !")
 end
 
 main()
+
