@@ -54,8 +54,7 @@ end
 
 function charger_valider(path::String)
     elts = charger_carte(path)
-
-    if Integrite(elts)  && entete_certifie(elts)
+    if Integrite(elts) && entete_certifie(elts)
         return elts
     end
 end
