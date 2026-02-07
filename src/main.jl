@@ -5,5 +5,3 @@ function main()
     elts = charger_valider(path)
     println("Chargement effectuer avec succes !", elts)
 end
-
-main()
