@@ -1,4 +1,5 @@
 #ICI JE VOUDRAIS FAIRE UNE BOUCLE NON ITERATIVE A L'EXEMPLE D'UNE EX2CUTION SHELL
+include("Carte_Operation/Charger_Carte.jl")
 
 function main()
     path = "data/street-map/Berlin_O_256.map"   # ou un chemin absolu pour tester
