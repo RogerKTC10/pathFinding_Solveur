@@ -1,8 +1,5 @@
-
-struct ChargementGrille
-    path :: String
-    content :: String
-end
+include("Struct_Carte.jl")
+using .Struct_Carte: ChargementGrille
 
 function verif_extension(path::String)
     #ICI JE VERIFIE SI LE FIHIER EST .map d'abord, sinon mon programme crache.
@@ -53,7 +50,7 @@ end
 #----Une Pipeline pour faire toute les actions de validation de la carte 
 
 function charger_valider(path::String)
-    elts = verif_extension(path)
+    elts = verif_extension(path) 
     if (nonVide(elts) && entete_certifie(elts))
         return elts
     end
