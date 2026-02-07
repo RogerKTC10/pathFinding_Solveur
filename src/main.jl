@@ -1,4 +1,4 @@
-include("Carte_Operation/Charger_Carte.jl")
+include("Carte_Operation/Chargement.jl")
 
 function main()
     path = "data/street-map/Berlin_0_256.map"
