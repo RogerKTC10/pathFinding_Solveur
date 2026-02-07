@@ -4,7 +4,7 @@ struct ChargementGrille
     content :: String
 end
 
-function charger_carte(path::String)
+function verif_extension(path::String)
     #ICI JE VERIFIE SI LE FIHIER EST .map d'abord, sinon mon programme crache.
     if !endswith(path, ".map")
         error("Le fichier a la mauvaise extension, on ne peut valider le chargerment")
@@ -16,7 +16,7 @@ function charger_carte(path::String)
     return ChargementGrille(path, ligne)
 end
 
-function Integrite(elts::ChargementGrille)
+function nonVide(elts::ChargementGrille)
     if isempty(elts.content)
         error("Fichier vide, on a aucun element dans ton fichier")
     end
@@ -53,8 +53,8 @@ end
 #----Une Pipeline pour faire toute les actions de validation de la carte 
 
 function charger_valider(path::String)
-    elts = charger_carte(path)
-    if Integrite(elts) && entete_certifie(elts)
+    elts = verif_extension(path)
+    if (nonVide(elts) && entete_certifie(elts))
         return elts
     end
 end
