@@ -2,7 +2,7 @@ include("Chargement.jl")
 
 function scinder(elts::ChargementGrille)
     decide, lignes = entete_certifie(elts)
-    if decide
+    if !isnothing(decide)
        debut = 1:4
        rest = 5:length(lignes)
 
@@ -15,7 +15,7 @@ end
 
 function Extraction(path::String)
     contenu = charger_valider(path)
-    if contenu 
+    if !isnothing(contenu)
         entete, apres_entete = scinder(contenu)
         recup_heigth = parse(Int, split(entete[2])[2])
         recup_width = parse(Int, split(entete[3])[2])
