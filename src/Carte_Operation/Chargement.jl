@@ -40,7 +40,7 @@ function entete_certifie(elts::ChargementGrille)
             end
         end
         if (doc_type == true && doc_height == true && doc_width == true && doc_map == true)
-            return true
+            return (true, decoupage)
         else
             error("Fichier map ne respectant pas la norme Moving AI doc \n")
         end
