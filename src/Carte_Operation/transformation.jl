@@ -5,7 +5,7 @@ function scinder(elts::ChargementGrille)
     if decide
        debut = 1:4
        rest = 5:length(lignes)
-       
+
        entete = lignes[debut]
        apres_entete = lignes[rest]
 
@@ -13,7 +13,7 @@ function scinder(elts::ChargementGrille)
     end
 end
 
-function Extraction(path::String)
+#=function Extraction(path::String)
     recup_heigth = 0
     recup_width = 0
     recup_map = 0
@@ -22,7 +22,7 @@ function Extraction(path::String)
 
     end
 
-end
+end=#
 
 function nonAlterer()
 end
