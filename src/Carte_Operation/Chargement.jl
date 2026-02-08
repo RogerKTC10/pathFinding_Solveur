@@ -57,9 +57,3 @@ function charger_valider(path::String)
        return elts
     end
 end
-
-# NB : Ces notes sont pour moi afin de pouvoir me souvenir de ce que j'ai fait au fur a mesur que j'evolue
-#=Ici j'ai ecris 2 fonctions qui se charge de faire un filtrage d'integrité et de validité
-donc le premiere fonction Charger_Grille() définis la validité du fichier et le second définis l'integrité du fichier, 
-ce serait inutile de transformer un fichier vide en matrice car elle sera une matrice vide.
-=#
