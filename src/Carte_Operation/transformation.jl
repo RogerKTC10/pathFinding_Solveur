@@ -20,7 +20,7 @@ function Extraction(path::String)
         recup_heigth = parse(Int, split(entete[2])[2])
         recup_width = parse(Int, split(entete[3])[2])
 
-        nettoyage = filter(!isempty, apres_entete)
+        nettoyage = [strip(l) for l in apres_entete if !isempty(strip(l))]
         return (recup_heigth, recup_width, nettoyage)
     end
 end
