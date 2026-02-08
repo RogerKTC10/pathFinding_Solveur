@@ -53,9 +53,9 @@ function charger_valider(path::String)
     elts = verif_extension(path) 
     nonVide(elts)
     decide, recup_decoup =  entete_certifie(elts)
-   if decide 
-    return elts
-   end
+    if decide 
+       return elts
+    end
 end
 
 # NB : Ces notes sont pour moi afin de pouvoir me souvenir de ce que j'ai fait au fur a mesur que j'evolue
