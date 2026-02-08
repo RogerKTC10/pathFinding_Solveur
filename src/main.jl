@@ -5,7 +5,7 @@ include("Carte_Operation/Transformation.jl")
 function main()
     path = "data/street-map/Berlin_0_256.map"
     elts = charger_valider(path)
-    if elts != nothing
+    if (isnothing(elts))
         println("Chargement effectuer avec succes !\n")
     end
     matrice = Remplir_Matrice_Cons(path)
@@ -14,7 +14,7 @@ function main()
         println("Erreur de creation")
     else
         println(size(matrice))
-        println(matrice)
+        
     end
 end
 main()
