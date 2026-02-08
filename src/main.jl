@@ -14,6 +14,7 @@ function main()
         println("Erreur de creation")
     else
         println(size(matrice))
+        println(matrice)
         
     end
 end
