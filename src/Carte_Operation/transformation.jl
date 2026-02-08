@@ -48,7 +48,7 @@ end
 #------------------------------------REMPLIR LES LIGNES ET COLONNES DE LA MATRICE----------------
 function Remplir_Matrice_Cons(path::String)
     contenu = Extraction(path)
-    if contenu
+    if !isnothing(contenu)
         h, w, donnee_recup = contenu
         if nonAlterer(donnee_recup, h, w)
              matriceCons = Matrice_Cons(h, w)
