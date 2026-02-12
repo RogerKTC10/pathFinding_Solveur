@@ -3,11 +3,11 @@ using .Struct_Carte: ChargementGrille
 
 function verif_extension(path::String)
     #ICI JE VERIFIE SI LE FIHIER EST .map d'abord, sinon mon programme crache.
-    if !endswith(path, ".map")
-        error("Le fichier a la mauvaise extension, on ne peut valider le chargerment \n")
-    end
     if !isfile(path)
         error("Ce fichier n'existe pas dans votre structure\n $path")
+    end
+    if !endswith(path, ".map")
+        error("Le fichier a la mauvaise extension, on ne peut valider le chargerment \n")
     end
     ligne = read(path, String)
     return ChargementGrille(path, ligne)
@@ -54,6 +54,8 @@ function charger_valider(path::String)
     nonVide(elts)
     decide, recup_decoup =  entete_certifie(elts)
     if decide 
-       return elts
+       return (elts, recup_decoup)
+    else
+        error("Validation echouer")
     end
 end
