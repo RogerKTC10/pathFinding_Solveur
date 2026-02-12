@@ -9,6 +9,11 @@ function main()
     matrice = Remplir_Matrice_Cons(path)
     println(size(matrice))
     println(matrice)
+    println("=== MATRICE 256x256 COMPLET ===")
+    for i in 1:256
+        line = join(mat[i, :])  # Concatène sans espaces
+        println(line)
+    end
         
 end
 main()
