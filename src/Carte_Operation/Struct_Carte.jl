@@ -1,4 +1,4 @@
-module  Struct_Carte
+module  CarteStructure
 export ChargementGrille
 
     struct ChargementGrille
