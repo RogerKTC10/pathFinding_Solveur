@@ -1,5 +1,5 @@
-module  CarteStructure
-export ChargementGrille
+module  Struct_Carte
+   export ChargementGrille
 
     struct ChargementGrille
         path :: String
