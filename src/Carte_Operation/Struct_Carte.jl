@@ -7,7 +7,9 @@ module  Struct_Carte
     end
 
     struct Carte_final_Struct
-
+        grille::Matrix{char}  
+        commencer::Tuple{Int,Int}
+        final::Tuple{Int,Int} 
     end
     
 end
