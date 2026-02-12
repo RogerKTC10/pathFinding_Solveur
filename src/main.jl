@@ -11,7 +11,7 @@ function main()
     println(matrice)
     println("=== MATRICE 256x256 COMPLET ===")
     for i in 1:256
-        line = join(mat[i, :])  # Concatène sans espaces
+        line = join(matrice[i, :])  # Concatène sans espaces
         println(line)
     end
         
