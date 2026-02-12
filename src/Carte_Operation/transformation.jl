@@ -1,6 +1,6 @@
 include("Chargement.jl")
 
-function scinder(lignes::Vector{String})
+function scinder(lignes)
     debut = 1:4
     rest = 5:length(lignes)
 
