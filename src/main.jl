@@ -8,8 +8,7 @@ function main()
     println("Chargement effectuer avec succes !\n")
     matrice = Remplir_Matrice_Cons(path)
     println(size(matrice))
-    println(matrice)
-    println("=== MATRICE 256x256 COMPLET ===")
+    println("=== MATRICE COMPLET ===")
     for i in 1:256
         line = join(matrice[i, :])  # Concatène sans espaces
         println(line)
