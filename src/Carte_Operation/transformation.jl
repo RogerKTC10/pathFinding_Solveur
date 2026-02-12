@@ -1,35 +1,28 @@
 include("Chargement.jl")
 
-function scinder(elts::ChargementGrille)
-    decide, lignes = entete_certifie(elts)
-    if !isnothing(decide)
-       debut = 1:4
-       rest = 5:length(lignes)
+function scinder(lignes::Vector{String})
+    debut = 1:4
+    rest = 5:length(lignes)
 
-       entete = lignes[debut]
-       apres_entete = lignes[rest]
+    entete = lignes[debut]
+    apres_entete = lignes[rest]
 
-        return (entete, apres_entete)
-    end
+    return (entete, apres_entete)
 end
 
 function Extraction(path::String)
     contenu = charger_valider(path)
-    if !isnothing(contenu)
-        entete, apres_entete = scinder(contenu)
-        recup_heigth = parse(Int, split(entete[2])[2])
-        recup_width = parse(Int, split(entete[3])[2])
-
-        nettoyage = String[] 
-        for l in apres_entete
-             ligne_propre = strip(l) 
-    
-             if !isempty(ligne_propre) 
-                  push!(nettoyage, ligne_propre) 
-             end
+    entete, apres_entete = scinder(contenu)
+    recup_heigth = parse(Int, split(entete[2])[2])
+    recup_width = parse(Int, split(entete[3])[2])
+    nettoyage = String[] 
+    for l in apres_entete
+        ligne_propre = strip(l) 
+        if !isempty(ligne_propre) 
+            push!(nettoyage, ligne_propre) 
         end
-           return (recup_heigth, recup_width, nettoyage)
     end
+    return (recup_heigth, recup_width, nettoyage)
 end
 
 function nonAlterer(nettoyage, v_height, v_width)
@@ -55,15 +48,16 @@ end
 #------------------------------------REMPLIR LES LIGNES ET COLONNES DE LA MATRICE----------------
 function Remplir_Matrice_Cons(path::String)
     contenu = Extraction(path)
-    if !isnothing(contenu)
-        h, w, donnee_recup = contenu
-        if nonAlterer(donnee_recup, h, w)
-             matriceCons = Matrice_Cons(h, w)
-
-             return matriceCons
+    h, w, donnee_recup = contenu
+    if nonAlterer(donnee_recup, h, w)
+       matriceCons = Matrice_Cons(h, w)
+       for i in 1:h
+            ligne = donnee_recup[i]
+            for j in 1:w
+                matriceCons[i, j] = ligne[j]
+            end
         end
-    else
-        error("Echec d'extraction")
+       return matriceCons
     end
 end
 
