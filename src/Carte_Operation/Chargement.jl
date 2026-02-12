@@ -55,5 +55,7 @@ function charger_valider(path::String)
     decide, recup_decoup =  entete_certifie(elts)
     if decide 
        return elts
+    else
+        error("Echec de chargement")
     end
 end
