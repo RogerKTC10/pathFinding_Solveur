@@ -9,7 +9,6 @@ function main()
     carte = Constructeur_Matrice_Cons(matrice)
 
     println(carte)
-    println("✅ Carte: $(carte.height)×$(carte.width)")
-    println("Premier test BFS prêt !")
+    println("Carte: $(carte.height)","$(carte.width)")
 end
 main()
