@@ -16,8 +16,9 @@ module  Struct_Carte
 
     function Constructeur_Matrice_Cons(grille::Matrix{Char})
         Carte_final_Struct(
-            grille, 
+            grille
+            #=, 
             size(grille, 1),
-            size(grille, 2))
+            size(grille, 2)=#)
     end
 end
