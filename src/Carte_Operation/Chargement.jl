@@ -59,3 +59,13 @@ function charger_valider(path::String)
         error("Echec de chargement")
     end
 end
+
+function scinder(lignes)
+    debut = 1:4
+    rest = 5:length(lignes)
+
+    entete = lignes[debut]
+    apres_entete = lignes[rest]
+
+    return (entete, apres_entete)
+end

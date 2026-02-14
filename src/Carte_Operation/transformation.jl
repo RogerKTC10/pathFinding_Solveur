@@ -1,15 +1,5 @@
 include("Chargement.jl")
 
-function scinder(lignes)
-    debut = 1:4
-    rest = 5:length(lignes)
-
-    entete = lignes[debut]
-    apres_entete = lignes[rest]
-
-    return (entete, apres_entete)
-end
-
 function Extraction(path::String)
     contenu = charger_valider(path)
     entete, apres_entete = scinder(contenu)
