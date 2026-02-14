@@ -1,14 +1,11 @@
-function Dictionnaire_Action(Char)
-    dic = ['.', '@','T','S', 'W']
-    for i in dic
-        if i == dic[1] || i == dic[3]
-            message = "Zone de blocage, passage refusé"
-            return (message, false)
+function BFS_dic_Action(i::Char)
+        if i == '.' || i == 'T'
+            return ("Zone de blocage, passage refusé", false)
+        elseif i == '.' || i == 'S' || i == 'W'
+           return ("Passage facile pour le BFS", true)
         else
-            message = "Passage facile pour le BFS"
-           return (message,true)  
+           return ("Caractère inconnu", false)  
         end
-    end
 end
 
 function Passage_decision()
