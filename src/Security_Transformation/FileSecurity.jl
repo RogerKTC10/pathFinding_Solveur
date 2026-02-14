@@ -1,4 +1,4 @@
-include("Struct_Carte.jl")
+include("Structure.jl")
 using .Struct_Carte: ChargementGrille
 
 function verif_extension(path::String)
