@@ -1,4 +1,4 @@
-include("Security_Transformation/Structure.jl")
+
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE BFS--------------------
 function BFS_dic_Action(i::Char)
         if (i == '@' || i == 'T')
