@@ -60,6 +60,7 @@ function charger_valider(path::String)
     end
 end
 
+#----Cette fonction me sera utilie dans la partie Transformation
 function scinder(lignes)
     debut = 1:4
     rest = 5:length(lignes)

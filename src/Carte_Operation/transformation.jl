@@ -29,7 +29,7 @@ function nonAlterer(nettoyage, v_height, v_width)
 end
 
 #--------------------------------------ALLOCATION MEMEOIRE DES MATRICE-------------------------
-function Matrice_Cons(h::Int64, w::Int64)
+function Matrice_Cons(h, w)
     return Matrix{Char}(undef, h, w)
 end
 
