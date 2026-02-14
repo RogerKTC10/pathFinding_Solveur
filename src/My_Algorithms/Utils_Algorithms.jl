@@ -29,3 +29,5 @@ function reconstruire_chemin(parents, depart, arrivee)
     push!(chemin, depart)
     reverse(chemin)
 end
+
+#----------LA PARTIE QUI CONCERNE UNIQUEMENT LE DJISTKRA--------------------
