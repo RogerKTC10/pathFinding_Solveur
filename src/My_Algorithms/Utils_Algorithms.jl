@@ -1,3 +1,4 @@
+include("Security_Transformation/Structure.jl")
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE BFS--------------------
 function BFS_dic_Action(i::Char)
         if (i == '@' || i == 'T')
@@ -9,5 +10,14 @@ function BFS_dic_Action(i::Char)
         end
 end
 
-function Action_Successeur()
+function Voisinage(i, j)
+   nord = (i - 1, j)
+   sud = (i + 1, j)
+   est = (i, j - 1)
+   ouest = (i, j + 1)
+   tab = [nord, sud, est, ouest]
+   return tab
+end
+
+function Reconstruuire_Chemin(parent, depart, arriver)
 end
