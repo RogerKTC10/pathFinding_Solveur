@@ -1,5 +1,5 @@
 include("Struct_Carte.jl")
-using .Struct_Carte: ChargementGrille
+using .Struct_Carte#: ChargementGrille
 
 function verif_extension(path::String)
     #ICI JE VERIFIE SI LE FIHIER EST .map d'abord, sinon mon programme crache.
