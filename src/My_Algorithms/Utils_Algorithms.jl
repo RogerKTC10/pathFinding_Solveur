@@ -19,5 +19,13 @@ function Voisinage(i, j)
    return tab
 end
 
-function Reconstruuire_Chemin(parent, depart, arriver)
+function reconstruire_chemin(parents, depart, arrivee)
+    chemin = []
+    actuel = arrivee
+    while actuel != depart
+        push!(chemin, actuel)
+        actuel = parents[actuel]
+    end
+    push!(chemin, depart)
+    reverse(chemin)
 end
