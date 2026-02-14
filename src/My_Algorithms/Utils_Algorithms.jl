@@ -9,5 +9,5 @@ function BFS_dic_Action(i::Char)
         end
 end
 
-function Passage_decision()
+function Action_Successeur()
 end
