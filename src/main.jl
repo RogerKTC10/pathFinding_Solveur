@@ -16,12 +16,8 @@ function main()
     #println(lancer_BFS)
 
     if res.distance == -1
-        println("❌ Aucun chemin trouvé.")
-        return
-    end
-
-   for i in 1:carte.height
-        for j in 1:carte.width
+        for i in 1:carte.height
+          for j in 1:carte.width
             if (i, j) == depart
                 print("🟩") # Départ
             elseif (i, j) == arriver
@@ -36,5 +32,6 @@ function main()
         end
         println() # Saut de ligne
     end
+end
 end
 main()
