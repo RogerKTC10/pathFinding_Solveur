@@ -35,6 +35,5 @@ function affichage_BFS(carte, chemin)
               label = "Chemin BFS")
     end
     display(affich)
-    gui()
                         
 end

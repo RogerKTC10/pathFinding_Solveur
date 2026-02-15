@@ -17,6 +17,7 @@ function main()
     res = execution_BFS(carte, depart, arriver)
     
     affichage_BFS(carte, res.chemin)
+    readline()
 
 end
 main()
