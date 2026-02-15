@@ -1,6 +1,5 @@
 include("Security_Transformation/FileSecurity.jl")
 include("Security_Transformation/Transformation.jl")
-include("Security_Transformation/Structure.jl")
 include("My_Algorithms/Utils_Algorithms.jl")
 include("My_Algorithms/BFS_Doc/BFS.jl")
 include("affichage.jl")
