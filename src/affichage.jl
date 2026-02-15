@@ -2,7 +2,6 @@ import Pkg
 Pkg.add("Plots")
 using Plots
 
-#include("Security_Transformation/Structure.jl")
 using .Struct_Carte
 
 function affichage_BFS(carte, chemin)
@@ -21,7 +20,8 @@ function affichage_BFS(carte, chemin)
                   color = cgrad([:lightgrey, :brown]),
                   yflip = true,
                   aspect_ratio = :equal,
-                  legend = false)
+                  legend = false,
+                  title = "Distance : $distance | Activité : $activite")
     if !isempty(chemin)
        x_coords = Int[]
        y_coords = Int[] 
@@ -30,12 +30,11 @@ function affichage_BFS(carte, chemin)
             push!(y_coords, i)
        end 
        scatter!(affich, x_coords, y_coords, 
-              color = :blue, 
-              markersize = 2,
-              markerstrokewidth = 0, 
-              label = "Chemin BFS")
-    scatter!(affich, [x_coords[1]], [y_coords[1]], color=:green, markersize=5, shape=:square)
-    scatter!(affich, [x_coords[end]], [y_coords[end]], color=:red, markersize=5, shape=:square)
+              color = :yellow, 
+              markersize = 4, 
+              label = "Chemin suivi par le BFS_Algo")
+      scatter!(affich, [x_coords[1]], [y_coords[1]], color=:green, markersize=5, shape=:circle)
+      scatter!(affich, [x_coords[end]], [y_coords[end]], color=:red, markersize=5, shape=:circle)
     
     end
     

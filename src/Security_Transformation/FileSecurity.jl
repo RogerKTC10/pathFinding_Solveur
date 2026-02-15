@@ -2,7 +2,6 @@ include("Structure.jl")
 using .Struct_Carte: ChargementGrille
 
 function verif_extension(path::String)
-    #ICI JE VERIFIE SI LE FIHIER EST .map d'abord, sinon mon programme crache.
     if !isfile(path)
         error("Ce fichier n'existe pas dans votre structure\n $path")
     end
