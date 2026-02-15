@@ -15,6 +15,11 @@ function main()
     res = execution_BFS(carte, depart, arriver)
     #println(lancer_BFS)
 
+    if res.distance == -1
+        println("❌ Aucun chemin trouvé.")
+        return
+    end
+
    for i in 1:carte.height
         for j in 1:carte.width
             if (i, j) == depart
