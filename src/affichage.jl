@@ -29,11 +29,14 @@ function affichage_BFS(carte, chemin)
             push!(x_coords, j) 
             push!(y_coords, i)
        end 
-       plot!(affich, x_coords, y_coords, 
+       scatter!(affich, x_coords, y_coords, 
               color = :blue, 
-              linewidth = 3, 
+              markersize = 2,
+              markerstrokewidth = 0, 
               label = "Chemin BFS")
     end
-    display(affich)
-                        
+    scatter!(affich, [x_coords[1]], [y_coords[1]], color=:green, markersize=5, shape=:square)
+    scatter!(affich, [x_coords[end]], [y_coords[end]], color=:red, markersize=5, shape=:square)
+    
+    display(affich)                    
 end
