@@ -12,7 +12,7 @@ function main()
     carte = Constructeur_Matrice_Cons(matrice)
     depart = (1, 1)
     arriver = (250, 250)
-    lancer_BFS = execution_BFS(carte, depart, arriver)
+    res = execution_BFS(carte, depart, arriver)
     #println(lancer_BFS)
 
    if res.distance == -1
