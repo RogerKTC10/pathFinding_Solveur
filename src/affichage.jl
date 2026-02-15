@@ -34,9 +34,10 @@ function affichage_BFS(carte, chemin)
               markersize = 2,
               markerstrokewidth = 0, 
               label = "Chemin BFS")
-    end
     scatter!(affich, [x_coords[1]], [y_coords[1]], color=:green, markersize=5, shape=:square)
     scatter!(affich, [x_coords[end]], [y_coords[end]], color=:red, markersize=5, shape=:square)
+    
+    end
     
     display(affich)                    
 end
