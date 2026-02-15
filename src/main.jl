@@ -14,5 +14,32 @@ function main()
     arriver = (250, 250)
     lancer_BFS = execution_BFS(carte, depart, arriver)
     println(lancer_BFS)
+
+    # On parcourt la grille ligne par ligne
+        for i in 1:carte.height
+            for j in 1:carte.width
+                # 1. Priorité : Est-ce le départ ou l'arrivée ?
+                if (i, j) == depart
+                    print("🟩") # Départ (Carré vert)
+                elseif (i, j) == arriver
+                    print("🟥") # Arrivée (Carré rouge)
+                
+                # 2. Est-ce une case du chemin trouvé ?
+                elseif (i, j) in lancer_BFS.chemin
+                    print("🔵") # Le chemin (Points bleus)
+                
+                # 3. Sinon, on affiche le terrain selon ton dictionnaire
+                else
+                    char = carte.grille[i, j]
+                    if char == '@' || char == 'T'
+                        print("⬛") # Mur / Obstacle
+                    else
+                        print("▫️ ") # Espace vide / Herbe
+                    end
+                end
+            end
+            println() # Retour à la ligne pour la rangée suivante
+        end
+        println("\nLégende : 🟩 Départ | 🟥 Arrivée | 🔵 Chemin | ⬛ Mur")
 end
 main()
