@@ -3,7 +3,7 @@ Pkg.add("Plots")
 using Plots
 
 #include("Security_Transformation/Structure.jl")
-#using .Struct_Carte
+using .Struct_Carte
 
 function affichage_BFS(carte, chemin)
     grille_recup  = zeros(Int, carte.height, carte.width)
