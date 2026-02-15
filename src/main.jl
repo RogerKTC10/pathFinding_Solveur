@@ -3,35 +3,46 @@ include("Security_Transformation/Transformation.jl")
 include("My_Algorithms/Utils_Algorithms.jl")
 include("My_Algorithms/BFS_Doc/BFS.jl")
 
-
 using .Struct_Carte
+
 function main()
     path = "data/street-map/Berlin_0_256.map"
     matrice = Remplir_Matrice_Cons(path)
-    
     carte = Constructeur_Matrice_Cons(matrice)
-    depart = (1, 1)
-    arriver = (250, 250)
+    
+    # CONSEIL : Sur Berlin, (1,1) est souvent un mur. 
+    # Essaie (10, 10) pour être sûr que ça ne bloque pas direct.
+    depart = (10, 10) 
+    arriver = (40, 40) 
+    
+    # On stocke le résultat dans 'res'
     res = execution_BFS(carte, depart, arriver)
-    #println(lancer_BFS)
 
+    # Vérification avant d'afficher (évite de crash si pas de chemin)
     if res.distance == -1
-        for i in 1:carte.height
-          for j in 1:carte.width
+        println("❌ Aucun chemin trouvé.")
+        return
+    end
+
+    # AFFICHAGE : Pour éviter que ça sature, on n'affiche que la zone utile
+    # (Par exemple les 50 premières lignes/colonnes)
+    for i in 1:min(50, carte.height)
+        for j in 1:min(50, carte.width)
             if (i, j) == depart
-                print("🟩") # Départ
+                print("🟩") 
             elseif (i, j) == arriver
-                print("🟥") # Arrivée
-            elseif (i, j) in lancer_BFS.chemin
-                print("🔵") # Le chemin tracé par ton BFS
+                print("🟥") 
+            elseif (i, j) in res.chemin  # <--- CORRECTION ICI (res au lieu de lancer_BFS)
+                print("🔵") 
             else
-                # On utilise ta logique d'obstacle pour l'affichage
                 msg, autorise = BFS_dic_Action(carte.grille[i,j])
-                print(autorise ? "▫️ " : "⬛") # Noir si obstacle, point si libre
+                print(autorise ? "▫️ " : "⬛") 
             end
         end
-        println() # Saut de ligne
+        println() 
     end
+    
+    println("\n✅ Distance calculée : ", res.distance)
 end
-end
+
 main()
