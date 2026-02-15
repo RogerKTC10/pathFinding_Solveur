@@ -13,33 +13,38 @@ function main()
     depart = (1, 1)
     arriver = (250, 250)
     lancer_BFS = execution_BFS(carte, depart, arriver)
-    println(lancer_BFS)
+    #println(lancer_BFS)
 
-    # On parcourt la grille ligne par ligne
-        for i in 1:carte.height
-            for j in 1:carte.width
-                # 1. Priorité : Est-ce le départ ou l'arrivée ?
-                if (i, j) == depart
-                    print("🟩") # Départ (Carré vert)
-                elseif (i, j) == arriver
-                    print("🟥") # Arrivée (Carré rouge)
-                
-                # 2. Est-ce une case du chemin trouvé ?
-                elseif (i, j) in lancer_BFS.chemin
-                    print("🔵") # Le chemin (Points bleus)
-                
-                # 3. Sinon, on affiche le terrain selon ton dictionnaire
-                else
-                    char = carte.grille[i, j]
-                    if char == '@' || char == 'T'
-                        print("⬛") # Mur / Obstacle
-                    else
-                        print("▫️ ") # Espace vide / Herbe
-                    end
-                end
+   if res.distance == -1
+        println("❌ Aucun chemin trouvé. Vérifiez que le départ/arrivée ne sont pas des murs.")
+        return # On arrête ici si rien n'est trouvé
+    end
+
+    println("✅ Chemin trouvé ! Distance : ", res.distance)
+    
+    # AFFICHAGE DU SCHÉMA (Seulement sur une zone limitée pour que ce soit beau)
+    # Ici on définit les bornes pour ne pas tout afficher d'un coup
+    margin = 5
+    min_i = max(1, min(depart[1], arriver[1]) - margin)
+    max_i = min(carte.height, max(depart[1], arriver[1]) + margin)
+    min_j = max(1, min(depart[2], arriver[2]) - margin)
+    max_j = min(carte.width, max(depart[2], arriver[2]) + margin)
+
+    println("\n--- Aperçu de la zone du chemin ---")
+    for i in min_i:max_i
+        for j in min_j:max_j
+            if (i, j) == depart
+                print("🟩")
+            elseif (i, j) == arriver
+                print("🟥")
+            elseif (i, j) in res.chemin
+                print("🔵")
+            else
+                char = carte.grille[i, j]
+                print(char == '@' || char == 'T' ? "⬛" : "▫️ ")
             end
-            println() # Retour à la ligne pour la rangée suivante
         end
-        println("\nLégende : 🟩 Départ | 🟥 Arrivée | 🔵 Chemin | ⬛ Mur")
+        println()
+    end
 end
 main()
