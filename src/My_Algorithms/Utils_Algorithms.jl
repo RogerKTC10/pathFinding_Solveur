@@ -45,6 +45,3 @@ end
 
 #----------LA PARTIE QUI CONCERNE l'AFFICHAGE--------------------
 
-function affichage(carte, depart, arriver, chemin)
-    message = "Voisi la visualisation du parcours donc:"
-end
