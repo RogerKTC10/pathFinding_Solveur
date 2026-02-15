@@ -5,12 +5,13 @@ include("My_Algorithms/BFS_Doc/BFS.jl")
 include("affichage.jl")
 
 
+
 using .Struct_Carte
 function main()
     path = "data/street-map/Berlin_0_256.map"
-    matrice = Remplir_Matrice_Cons(path)
+    matrice = Struct_Carte.Remplir_Matrice_Cons(path)
     
-    carte = Constructeur_Matrice_Cons(matrice)
+    carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     depart = (1, 1)
     arriver = (250, 250)
     res = execution_BFS(carte, depart, arriver)
