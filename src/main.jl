@@ -2,6 +2,7 @@ include("Security_Transformation/FileSecurity.jl")
 include("Security_Transformation/Transformation.jl")
 include("My_Algorithms/Utils_Algorithms.jl")
 include("My_Algorithms/BFS_Doc/BFS.jl")
+include("affichage.jl")
 
 
 using .Struct_Carte
@@ -13,6 +14,8 @@ function main()
     depart = (1, 1)
     arriver = (250, 250)
     res = execution_BFS(carte, depart, arriver)
-    println(lancer_BFS,"\n")
+    
+    affichage_BFS(carte, res.chemin)
+
 end
 main()
