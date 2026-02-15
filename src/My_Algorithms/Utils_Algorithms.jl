@@ -42,3 +42,9 @@ end
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE A*--------------------
 
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE GLOUTON--------------------
+
+#----------LA PARTIE QUI CONCERNE l'AFFICHAGE--------------------
+
+function affichage(carte, depart, arriver, chemin)
+    message = "Voisi la visualisation du parcours donc:"
+end
