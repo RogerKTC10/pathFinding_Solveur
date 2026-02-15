@@ -13,8 +13,8 @@ end
 function Voisinage(i, j)
    nord = (i - 1, j)
    sud = (i + 1, j)
-   est = (i, j - 1)
-   ouest = (i, j + 1)
+   est = (i, j + 1)
+   ouest = (i, j - 1)
    tab = [nord, sud, est, ouest]
    return tab
 end
@@ -24,10 +24,17 @@ function reconstruire_chemin(parents, depart, arrivee)
     actuel = arrivee
     while actuel != depart
         push!(chemin, actuel)
+
+        if !haskey(parents, actuel)
+            error("Le chemin est rompu ou inexistant !")
+        end
+        
         actuel = parents[actuel]
     end
     push!(chemin, depart)
-    reverse(chemin)
+    chemin_inverse = reverse(chemin)
+
+    return chemin_inverse
 end
 
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE DJISTKRA--------------------
