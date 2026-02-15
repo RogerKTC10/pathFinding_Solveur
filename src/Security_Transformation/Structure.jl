@@ -1,5 +1,7 @@
 module  Struct_Carte
-   export ChargementGrille, Carte_final_Struct, Constructeur_Matrice_Cons
+   export ChargementGrille, 
+          Carte_final_Struct, 
+          Constructeur_Matrice_Cons
 
     struct ChargementGrille
         path :: String
