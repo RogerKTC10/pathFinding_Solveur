@@ -28,7 +28,7 @@ function reconstruire_chemin(parents, depart, arrivee)
         if !haskey(parents, actuel)
             error("Le chemin est rompu ou inexistant !")
         end
-        
+
         actuel = parents[actuel]
     end
     push!(chemin, depart)
@@ -38,3 +38,7 @@ function reconstruire_chemin(parents, depart, arrivee)
 end
 
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE DJISTKRA--------------------
+
+#----------LA PARTIE QUI CONCERNE UNIQUEMENT LE A*--------------------
+
+#----------LA PARTIE QUI CONCERNE UNIQUEMENT LE GLOUTON--------------------
