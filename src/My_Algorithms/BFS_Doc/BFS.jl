@@ -31,7 +31,6 @@ function execution_BFS(carte::Carte_final_Struct, depart, arriver)
             end
         end
     end
-
     if trouve
         chemin_final = reconstruire_chemin(parents, depart, arriver)
         return (chemin = chemin_final, activite = nb_etats_evalues, distance = length(chemin_final)-1)
