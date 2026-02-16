@@ -51,6 +51,11 @@ function Remplir_Matrice_Cons(path::String)
     end
 end
 
-function Remplir_Matrice_Value()
+function Remplir_Matrice_Value(matrice::matriceCons)
+    if !isempty(matrice)
+
+    else
+        error("Matrice de base non retenu")
+    end
 end
 
