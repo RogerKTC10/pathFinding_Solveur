@@ -15,6 +15,7 @@ function main()
     depart = (1, 1)
     arriver = (250, 250)
     res = execution_BFS(carte, depart, arriver)
+    println(res)
     
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
     readline()
