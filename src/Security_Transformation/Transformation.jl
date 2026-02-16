@@ -33,7 +33,8 @@ function Matrice_Cons(h, w)
     return Matrix{Char}(undef, h, w)
 end
 
-function Matrice_Value()
+function Matrice_Value(h, w)
+    return Matrix{Float64}(undef, h, w)
 end
 #------------------------------------REMPLIR LES LIGNES ET COLONNES DE LA MATRICE----------------
 function Remplir_Matrice_Cons(path::String)
@@ -51,11 +52,16 @@ function Remplir_Matrice_Cons(path::String)
     end
 end
 
-function Remplir_Matrice_Value(matrice::matriceCons)
-    if !isempty(matrice)
+function Remplir_Matrice_Value(matrice::Matrix{Char})
+    (h, w) = size(matrice)
 
-    else
-        error("Matrice de base non retenu")
+    matriceValue = Matrice_Value(h, w)
+
+    for i in 1:h 
+        for j in 1:w
+            matriceValue[i, j] = valuation(matrice)
+        end
     end
+    return matrice_value
 end
 
