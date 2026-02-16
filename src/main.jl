@@ -8,7 +8,7 @@ include("affichage.jl")
 
 using .Struct_Carte
 function main()
-    path = "data/street-map/Berlin_0_256.map"
+    path = "data/street-map/Paris_0_1024.map"
     matrice = Remplir_Matrice_Cons(path)
     
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
