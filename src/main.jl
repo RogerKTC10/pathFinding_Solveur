@@ -12,8 +12,8 @@ function main()
     matrice = Remplir_Matrice_Cons(path)
     
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
-    depart = (1, 1)
-    arriver = (250, 250)
+    depart = (121, 180)
+    arriver = (1020, 1024)
     res = execution_BFS(carte, depart, arriver)
     println(res)
     
