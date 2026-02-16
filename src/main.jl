@@ -9,7 +9,9 @@ include("affichage.jl")
 using .Struct_Carte
 function main()
     path = "data/street-map/Paris_0_1024.map"
-    matrice = Remplir_Matrice_Cons(path)
+    matrice = Remplir_Matrice_Value(path)
+    println(matrice)
+    #=matrice = Remplir_Matrice_Cons(path)
     
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     depart = (121, 180)
@@ -18,7 +20,7 @@ function main()
     println(res)
     
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
-    readline()
+    readline()=#
 
 end
 main()
