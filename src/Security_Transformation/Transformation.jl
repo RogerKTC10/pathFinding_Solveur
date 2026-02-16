@@ -1,5 +1,6 @@
 include("FileSecurity.jl")
 
+
 function Extraction(path::String)
     contenu = charger_valider(path)
     entete, apres_entete = scinder(contenu)
@@ -50,6 +51,20 @@ function Remplir_Matrice_Cons(path::String)
         end
        return matriceCons
     end
+end
+
+
+#------------------------------------REMPLIR MATRICE LA MATRICE VALUER----------------
+function valuation(c::Char)
+    if c == 'S'
+        return 5.0 
+    end
+    if c == 'W'
+        return 8.0 
+    end
+    if c == '@' || '.' || 'T'
+        return 1.0 
+    end       
 end
 
 function Remplir_Matrice_Value(matrice::Matrix{Char})
