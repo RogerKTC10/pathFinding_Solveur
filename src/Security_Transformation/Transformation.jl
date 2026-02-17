@@ -58,13 +58,13 @@ end
 function valuation(c::Char)
     if c == 'S'
         return 5.0 
-    end
-    if c == 'W'
+    elseif c == 'W'
         return 8.0 
-    end
-    if c == '@' || '.' || 'T'
+    elseif c == '@'
+        return Inf  
+    else
         return 1.0 
-    end       
+    end    
 end
 
 function Remplir_Matrice_Value(matrice::Matrix{Char})
