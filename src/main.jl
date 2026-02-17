@@ -21,7 +21,7 @@ function main()
     #println(res)
     
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
-    readline()
+    #readline()
 
 end
 main()
