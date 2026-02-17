@@ -1,4 +1,6 @@
-function execution_BFS(carte::Struct_Carte.Carte_final_Struct, depart, arriver)
+using .Struct_Carte
+
+function execution_BFS(carte::Carte_final_Struct, depart, arriver)
     file = [depart]                 
     visites = Set([depart])               
     parents = Dict()

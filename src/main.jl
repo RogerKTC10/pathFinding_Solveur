@@ -5,9 +5,6 @@ include("My_Algorithms/BFS_Doc/BFS.jl")
 include("Comparaison.jl")
 include("affichage.jl")
 
-
-
-using .Struct_Carte
 function main()
     path = "data/street-map/Paris_0_1024.map"
     matrice = Remplir_Matrice_Cons(path)
