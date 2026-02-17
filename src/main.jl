@@ -12,15 +12,14 @@ function main()
     matrice = Remplir_Matrice_Cons(path)
     matriceV = Remplir_Matrice_Value(matrice)
     #=println(matrice)=#
-    
-    
+
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     depart = (121, 180)
     arriver = (1020, 1024)
     res = execution_BFS(carte, depart, arriver);
     println(res)
      cout_BFS = Cout_dist_BFS(res.chemin, matriceV)
-     println("Cout du Chemin parcourue", cout_BFS)
+     println("Cout du Chemin parcourue\n", cout_BFS)
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
     #readline()
 
