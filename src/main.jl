@@ -10,8 +10,8 @@ using .Struct_Carte
 function main()
     path = "data/street-map/Paris_0_1024.map"
     matrice = Remplir_Matrice_Cons(path)
-    #=matrice = Remplir_Matrice_Value(matricecons)
-    println(matrice)=#
+    matriceV = Remplir_Matrice_Value(matricecons)
+    #=println(matrice)=#
     
     
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
@@ -19,7 +19,8 @@ function main()
     arriver = (1020, 1024)
     res = execution_BFS(carte, depart, arriver);
     println(res)
-    
+     cout_BFS = Cout_dist_BFS(res.chemin, matriceV)
+     println("Cout du Chemin parcourue", cout_BFS)
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
     #readline()
 
