@@ -77,6 +77,6 @@ function Remplir_Matrice_Value(matrice::Matrix{Char})
             matriceValue[i, j] = valuation(matrice[i, j])
         end
     end
-    return matrice_value
+    return matriceValue
 end
 
