@@ -38,5 +38,5 @@ function affichage_BFS(carte, chemin, distance, activite)
     
     end
     
-    display(affich)                    
+    savefig(affich, "res/resultat_bfs.png")                   
 end

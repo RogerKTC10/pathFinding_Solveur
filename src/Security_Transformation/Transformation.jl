@@ -38,6 +38,7 @@ function Matrice_Value(h, w)
     return Matrix{Float64}(undef, h, w)
 end
 #------------------------------------REMPLIR LES LIGNES ET COLONNES DE LA MATRICE----------------
+#Cette construction est pour l'utiliser au BFS
 function Remplir_Matrice_Cons(path::String)
     contenu = Extraction(path)
     h, w, donnee_recup = contenu
@@ -52,8 +53,6 @@ function Remplir_Matrice_Cons(path::String)
        return matriceCons
     end
 end
-
-
 #------------------------------------REMPLIR MATRICE LA MATRICE VALUER----------------
 function valuation(c::Char)
     if c == 'S'
