@@ -74,7 +74,7 @@ function Remplir_Matrice_Value(matrice::Matrix{Char})
 
     for i in 1:h 
         for j in 1:w
-            matriceValue[i, j] = valuation(matrice)
+            matriceValue[i, j] = valuation(matrice[i, j])
         end
     end
     return matrice_value
