@@ -2,6 +2,7 @@ include("Security_Transformation/FileSecurity.jl")
 include("Security_Transformation/Transformation.jl")
 include("My_Algorithms/Utils_Algorithms.jl")
 include("My_Algorithms/BFS_Doc/BFS.jl")
+include("Comparaison.jl")
 include("affichage.jl")
 
 
