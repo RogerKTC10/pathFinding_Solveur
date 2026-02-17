@@ -10,7 +10,7 @@ using .Struct_Carte
 function main()
     path = "data/street-map/Paris_0_1024.map"
     matrice = Remplir_Matrice_Cons(path)
-    matriceV = Remplir_Matrice_Value(matricecons)
+    matriceV = Remplir_Matrice_Value(matrice)
     #=println(matrice)=#
     
     
