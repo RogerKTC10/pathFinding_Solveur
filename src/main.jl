@@ -9,9 +9,10 @@ include("affichage.jl")
 using .Struct_Carte
 function main()
     path = "data/street-map/Paris_0_1024.map"
-    matrice = Remplir_Matrice_Value(path)
+    matricecons = Remplir_Matrice_Cons(path)
+    matrice = Remplir_Matrice_Value(matricecons)
     println(matrice)
-    #=matrice = Remplir_Matrice_Cons(path)
+    #=
     
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     depart = (121, 180)
