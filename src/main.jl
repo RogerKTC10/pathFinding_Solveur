@@ -17,7 +17,7 @@ function main()
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     depart = (121, 180)
     arriver = (1020, 1024)
-    res = execution_BFS(carte, depart, arriver)
+    res = execution_BFS(carte, depart, arriver);
     #println(res)
     
     affichage_BFS(carte, res.chemin, res.distance, res.activite)
