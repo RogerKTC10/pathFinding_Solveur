@@ -1,4 +1,3 @@
-
 function execution_BFS(carte::Struct_Carte.Carte_final_Struct, depart, arriver)
     file = [depart]                 
     visites = Set([depart])               

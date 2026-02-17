@@ -4,7 +4,7 @@ include("My_Algorithms/Utils_Algorithms.jl")
 
 #---Spécifiquement pour le BFS------
 function Cout_dist_BFS(chemin, valuate_Matrice)
-    cout_parcours =  zeros(Float64)
+    cout_parcours =  0.0
         for coord in chemin
             (i, j) = coord
             val = valuate_Matrice[i, j]
