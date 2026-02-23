@@ -9,12 +9,9 @@ function execution_Djisktra(G::Carte_Final_Value_Struct, vdepart, varriver)
 
     distance_djis = Dict{Tuple{Int, Int}, Float64}()
     distance_djis[vdepart] = 0.0
-
     parents = Dict{Tuple{Int, Int}, Tuple{Int, Int}}()
-    visiter = Set{vdepart}
     
     maFile = tas_min()
-
     maFile[vdepart] = 0.0
 
     while !isempty(maFile)
@@ -22,20 +19,24 @@ function execution_Djisktra(G::Carte_Final_Value_Struct, vdepart, varriver)
         if extrai_min_noeud == varriver
             break
         end
-    end
 
-    for voisin in Voisinage(extrai_min_noeud, j)
-        i_visiter, j_visiter = voisin
+        for voisin in Voisinage(extrai_min_noeud, G)
+            i_visiter, j_visiter = voisin
 
-        valuation_voisin = matriceDjis[i_]
+            valuation_voisin = matriceDjis[i_]
 
-        distance_djistkra = distance_djis[extrai_min_noeud] + valuation_voisin
-        if !haskey(distance_djis, v) || nouvelle_dist < distance_djis[v]
-                distance_djis[v] = nouvelle_dist
-                parents[v] = u
+            distance_djistkra = distance_djis[extrai_min_noeud] + valuation_voisin
+            if !haskey(distance_djis, voisin) || nouvelle_dist < distance_djis[v]
+                distance_djis[voisin] = nouvelle_dist
+                parents[voisin] = extrai_min_noeud
                 
                 # On ajoute ou on met à jour dans ton tas
-                file_priorite[v] = nouvelle_dist
+                maFile[voisin] = distance_djistkra
+            end
         end
     end
+
+    chemin_djisktra = reconstruire_chemin(parents, vdepart, varriver)
+    cout_total_parcours  = distance_djis[varriver]
+    return (chemin_djisktra, cout_total_parcours)
 end
