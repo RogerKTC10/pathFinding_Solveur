@@ -24,39 +24,44 @@ end
 function detecter_zones_interet(matriceChar)
     h, w = size(matriceChar)
     
-    # On scanne la carte à la recherche d'eau 'W' (priorité ville)
-    for i in 20:h-20
-        for j in 20:w-20
-            if matriceChar[i, j] == 'W'
-                
-                # On a trouvé de l'eau ! Maintenant on cherche la rive GAUCHE
-                dep_j = j
-                while dep_j > 1 && matriceChar[i, dep_j] != '.'
-                    dep_j -= 1
-                end
-                
-                # Et on cherche la rive DROITE
-                arr_j = j
-                while arr_j < w && matriceChar[i, arr_j] != '.'
-                    arr_j += 1
-                end
+    # On définit la liste des obstacles par ordre de "spectacle" (Eau d'abord, puis Marais)
+    # On ne prend que ce qui a une valuation > 1.0
+    obstacles = ['W', 'S']
 
-                # Si on a trouvé du sol des deux côtés sans sortir de la carte
-                if matriceChar[i, dep_j] == '.' && matriceChar[i, arr_j] == '.'
-                    # On s'écarte encore de 2 pixels pour être bien sur la route
-                    final_dep = (i, max(1, dep_j - 2))
-                    final_arr = (i, min(w, arr_j + 2))
+    for cible in obstacles
+        for i in 20:h-20
+            for j in 20:w-20
+                # Si on trouve un pixel qui coûte cher
+                if matriceChar[i, j] == cible
                     
-                    println("✅ Rives trouvées à Berlin ! Départ: $final_dep, Arrivée: $final_arr")
-                    return final_dep, final_arr
+                    # On cherche le sol libre ('.') à GAUCHE
+                    dep_j = j
+                    while dep_j > 2 && matriceChar[i, dep_j] != '.'
+                        dep_j -= 1
+                    end
+                    
+                    # On cherche le sol libre ('.') à DROITE
+                    arr_j = j
+                    while arr_j < w-2 && matriceChar[i, arr_j] != '.'
+                        arr_j += 1
+                    end
+
+                    # Si on a bien trouvé du sol des deux côtés
+                    if matriceChar[i, dep_j] == '.' && matriceChar[i, arr_j] == '.'
+                        # On s'éloigne un peu pour être sûr de ne pas être collé à l'obstacle
+                        final_dep = (i, max(1, dep_j - 1))
+                        final_arr = (i, min(w, arr_j + 1))
+                        println("🎯 Zone détectée ! Type: $cible | Départ: $final_dep | Arrivée: $final_arr")
+                        return final_dep, final_arr
+                    end
                 end
             end
         end
     end
     
-    # Si pas d'eau, on fait la même chose avec le marais 'S'
-    # (Même code mais avec 'S', je te passe la répétition pour rester simple)
-    error("Aucune zone d'eau avec des rives accessibles n'a été trouvée sur cette ville.")
+    # Si après avoir tout cherché on n'a rien trouvé, on prend deux points de route au hasard
+    println("⚠️ Aucun obstacle spécial. Dijkstra et BFS donneront sûrement le même coût.")
+    return (50, 50), (h-50, w-50)
 end
 
 
