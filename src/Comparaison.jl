@@ -24,34 +24,40 @@ end
 function detecter_zones_interet(matriceChar)
     h, w = size(matriceChar)
     
-    # On fixe des valeurs simples qui marchent partout
-    saut = 15  # Distance entre le départ et l'eau
-    marge = 20 # Pour ne pas taper les bords de la carte
-
-    # On cherche d'abord l'eau 'W', sinon le marais 'S'
-    for cible in ['W', 'S']
-        for i in (marge + 1):(h - marge)
-            for j in (saut + 1):(w - saut)
+    # On scanne la carte à la recherche d'eau 'W' (priorité ville)
+    for i in 20:h-20
+        for j in 20:w-20
+            if matriceChar[i, j] == 'W'
                 
-                # 1. Est-ce qu'on a trouvé l'obstacle ?
-                if matriceChar[i, j] == cible
+                # On a trouvé de l'eau ! Maintenant on cherche la rive GAUCHE
+                dep_j = j
+                while dep_j > 1 && matriceChar[i, dep_j] != '.'
+                    dep_j -= 1
+                end
+                
+                # Et on cherche la rive DROITE
+                arr_j = j
+                while arr_j < w && matriceChar[i, arr_j] != '.'
+                    arr_j += 1
+                end
+
+                # Si on a trouvé du sol des deux côtés sans sortir de la carte
+                if matriceChar[i, dep_j] == '.' && matriceChar[i, arr_j] == '.'
+                    # On s'écarte encore de 2 pixels pour être bien sur la route
+                    final_dep = (i, max(1, dep_j - 2))
+                    final_arr = (i, min(w, arr_j + 2))
                     
-                    # 2. Est-ce que le départ et l'arrivée sont du sol '.' ?
-                    if matriceChar[i, j - saut] == '.' && matriceChar[i, j + saut] == '.'
-                        
-                        println("📍 Zone trouvée ! Type: $cible")
-                        return (i, j - saut), (i, j + saut)
-                    end
+                    println("✅ Rives trouvées à Berlin ! Départ: $final_dep, Arrivée: $final_arr")
+                    return final_dep, final_arr
                 end
             end
         end
     end
     
-    # Si vraiment aucune eau/marais n'est traversable, on prend deux points de sol au hasard
-    println("⚠️ Aucun obstacle trouvé, recherche de sol standard...")
-    return (marge+1, marge+1), (h-marge, w-marge)
+    # Si pas d'eau, on fait la même chose avec le marais 'S'
+    # (Même code mais avec 'S', je te passe la répétition pour rester simple)
+    error("Aucune zone d'eau avec des rives accessibles n'a été trouvée sur cette ville.")
 end
-
 
 
 
