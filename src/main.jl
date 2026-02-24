@@ -17,7 +17,7 @@ function main()
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
     carte_djis = Struct_Carte.Constructeur_Matrice_Value(matriceV)
 
-    depart, arriver = trouver_points_pieges(matrice)
+    depart, arriver = trouver_points_auto(matrice)
 
     println("Lancement BFS...")
     res_bfs = execution_BFS(carte, depart, arriver)
