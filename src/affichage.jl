@@ -36,5 +36,33 @@ function affichage_BFS(carte, chemin, distance, activite)
     
     end
     
-    savefig(affich, "res/resultat_bfs.png")                   
+    savefig(affich, "res/BFS_Res/resultat_bfs.png")                   
+end
+
+function affichage_Djistkra(carte_valu, chemin_djis, distance, activite)
+    grille_recup_djis = carte_valu.grille_val
+
+    affich = heatmap(grille_recup_djis,
+                  color = cgrad([:lightgrey, :brown]),
+                  yflip = true,
+                  aspect_ratio = :equal,
+                  legend = false,
+                  title = "Distance : $distance | Activité : $activite")
+    if !isempty(chemin_djis)
+       x_coords = Int[]
+       y_coords = Int[] 
+       for (i, j) in chemin_djis
+            push!(x_coords, j) 
+            push!(y_coords, i)
+       end 
+       scatter!(affich, x_coords, y_coords, 
+              color = :yellow, 
+              markersize = 4, 
+              label = "Chemin suivi par l'algorithme Djisktra")
+      scatter!(affich, [x_coords[1]], [y_coords[1]], color=:green, markersize=5, shape=:circle)
+      scatter!(affich, [x_coords[end]], [y_coords[end]], color=:red, markersize=5, shape=:circle)
+    
+    end
+    savefig(affich, "res/Djisktra_Res/resultat_dijkstra.png")
+    return affich
 end

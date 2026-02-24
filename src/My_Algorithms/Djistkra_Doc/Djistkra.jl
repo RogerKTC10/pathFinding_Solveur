@@ -23,13 +23,13 @@ function execution_Djisktra(G::Carte_Final_Value_Struct, vdepart, varriver)
         for voisin in Voisinage(extrai_min_noeud, G)
             i_visiter, j_visiter = voisin
 
-            valuation_voisin = matriceDjis[i_]
+            valuation_voisin = matriceDjis[i_visiter, j_visiter]
 
             distance_djistkra = distance_djis[extrai_min_noeud] + valuation_voisin
-            if !haskey(distance_djis, voisin) || nouvelle_dist < distance_djis[v]
-                distance_djis[voisin] = nouvelle_dist
+            if !haskey(distance_djis, voisin) || distance_djistkra < distance_djis[voisin]
+                distance_djis[voisin] = distance_djistkra
                 parents[voisin] = extrai_min_noeud
-                
+            
                 # On ajoute ou on met à jour dans ton tas
                 maFile[voisin] = distance_djistkra
             end
