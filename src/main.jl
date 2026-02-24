@@ -18,7 +18,7 @@ function main()
     carte_djis = Struct_Carte.Constructeur_Matrice_Value(matriceV)
 
     # Test sur une distance significative
-    depart = (84, 470)
+    depart = (84, 1000)
     arriver = (590, 400)
 
     println("Lancement BFS...")
