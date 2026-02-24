@@ -4,7 +4,8 @@ include("Security_Transformation/Transformation.jl")
 include("My_Algorithms/Utils_Algorithms.jl")
 include("My_Algorithms/BFS_Doc/BFS.jl")
 include("My_Algorithms/Djistkra_Doc/Djistkra.jl")
-include("Comparaison.jl")
+# Si ta fonction calculer_cout_chemin est ici :
+include("Comparaison.jl") 
 include("affichage.jl")
 
 function main()
@@ -13,33 +14,29 @@ function main()
     matriceV = Remplir_Matrice_Value(matrice)
 
     carte = Struct_Carte.Constructeur_Matrice_Cons(matrice)
-    carte_djis =  Struct_Carte.Constructeur_Matrice_Value(matriceV)
+    carte_djis = Struct_Carte.Constructeur_Matrice_Value(matriceV)
 
+    # Test sur une distance significative
     depart = (84, 470)
     arriver = (590, 400)
 
-    
-    
-    println("BFS Lancement \n")
-    res = execution_BFS(carte, depart, arriver)
+    println("Lancement BFS...")
+    res_bfs = execution_BFS(carte, depart, arriver)
 
-    println("Djistra Lancement \n")
+    println("Lancement Dijkstra...")
     res_djis = execution_Djisktra(carte_djis, depart, arriver)
 
-    cout_reel_bfs = calculer_cout_chemin(res.chemin, matrice)
-    #Resulta de BFS et Djistkra
-    println("\n--- RÉSULTATS ---")
-    println("BFS      : Coût Réel = $cout_reel_bfs | Activité = $(res.activite)")
-    println("Dijkstra : Coût = $(res_djis.cout) | Activité = $(res_djis.activite)")
+    #--- LE CALCUL SÉRIEUX ---
+    # On passe bien 'matrice' (les Char) pour que 'valuation' fonctionne
+    cout_reel_bfs = calculer_cout_chemin(res_bfs.chemin, matrice)
 
-    #Visuel BFS
-    affichage_BFS(carte, res.chemin, res.distance, res.activite)
-    
-    #Visuel Djistkra
-    affichage_Djistkra(carte_djis, res_djis.chemin, res_djis.cout, res_djis.activite)
-     
-    #-------------------------UN TRUC OPTIONNELLE QUE J4AI MISE------------------------- 
-    #cout_BFS = Cout_dist_BFS(res.chemin, matriceV)
-    #println("Cout du Chemin parcourue\n", cout_BFS)
+    println("\n--- COMPARAISON DES PERFORMANCES ---")
+    println("BFS      | Coût Réel: $cout_reel_bfs | États: $(res_bfs.activite)")
+    println("Dijkstra | Coût Réel: $(res_djis.cout) | États: $(res_djis.activite)")
+
+    if cout_reel_bfs > res_djis.cout
+        println("\nVictoire : Dijkstra a trouvé un chemin moins cher de $(cout_reel_bfs - res_djis.cout) points !")
+    end
 end
+
 main()
