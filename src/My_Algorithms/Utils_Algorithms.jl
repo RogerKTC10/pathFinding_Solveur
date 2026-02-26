@@ -2,7 +2,7 @@
 #----------LA PARTIE QUI CONCERNE UNIQUEMENT LE BFS--------------------
 
 function BFS_dic_Action(i::Char)
-    if (i == '@')
+    if (i == '@' || i == 'T')
         return ("Zone de blocage, passage refusé", false)
     else
         return ("Autre", true)  
