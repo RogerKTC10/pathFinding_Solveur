@@ -1,4 +1,8 @@
 # pathFinding_Solveur 
+
+------------------------------------------------------------------------
+Travail Réalisé par N'TCHAM Komina Roger (Etudiant à Nantes Université)
+------------------------------------------------------------------------
 Mini_ SOLVEUR qui definis un chemin optimal sur une carte 2d avec une vue de graphe.
 
 
