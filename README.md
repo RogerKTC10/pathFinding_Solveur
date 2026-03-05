@@ -5,6 +5,7 @@ La documentation n'est pas fait pour ce premier JALON, toute les info importante
 
 Pour exécuter mon travail, juste le lancer dans le terminal avec julia + include ("src/fichiermain.extension") et vous verrez les resultats dans le terminal.
 
+Concernant la complexité des functions de mon code, je les mettrai dans la documentation du rendu final , bien expliquer, mais la logique de travail que je suis est bien structurer pour reduire au mieux les complexités afin de ne pas trop peser sur la machine en fait ...
                  --------------------------------------------------------------------------------------
                         Travail Réalisé par N'TCHAM KOMINA ROGER (Etudiant à Nantes Université)
                  --------------------------------------------------------------------------------------
