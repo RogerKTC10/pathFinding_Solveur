@@ -20,6 +20,8 @@ NB : Ce projet sera réalisé en "Julia" et est présenter comme un projet de sc
 
 Note : Pour l'instant l'affichage avec le paquettage "Plots" de julia n'est pas encore au points, mais je pense qu'elle le sera à la fin de la 2eme partie.
 
+Aussi je tiens à préciser que j'ai mis des petit commentaire dans mon code afin de pouvoir me reperer de fichier en fichier .
+
 
 les fichiers "affichage.jl" n'est pas encore au point, et elle ne concerne pas ce premier rendu. 
 

@@ -29,7 +29,6 @@ function trouver_points_pieges(matriceChar)
     end
 end
 
-#---Spécifiquement pour le BFS------
 function calculer_cout_chemin(chemin, matriceChar)
     total_facture = 0.0
     for k in 2:length(chemin)
