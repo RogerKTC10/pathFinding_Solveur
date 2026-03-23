@@ -29,7 +29,6 @@ function execution_Etoile_Adaptation(G::Carte_Final_Value_Struct, vdepart::Tuple
             if voisin.x == actuel.x && voisin.y == actuel.y
                 poids_action = 1.0  # L'attente coûte 1 unité de temps par défaut
             else
-                # Sinon, on récupère le coût réel du terrain (eau = 10, sol = 1, etc.)
                 poids_action = recup_cout_chemin(voisin.y, voisin.x, G)
             end
 
@@ -39,7 +38,6 @@ function execution_Etoile_Adaptation(G::Carte_Final_Value_Struct, vdepart::Tuple
                 g_score[voisin] = nouveau_g 
                 parents[voisin] = actuel
                 
-                # f = g (coût réel cumulé) + h (estimation Manhattan)
                 priorite_f = nouveau_g + h_adapter(voisin, varriver)
                 maFile[voisin] = priorite_f
             end
