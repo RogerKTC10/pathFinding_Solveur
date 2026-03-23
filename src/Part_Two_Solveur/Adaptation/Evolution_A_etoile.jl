@@ -3,37 +3,44 @@ include("../Utilitaire_Part2.jl")
 using DataStructures
 
 function execution_Etoile_Adaptation(G::Carte_Final_Value_Struct, vdepart::Tuple{Int,Int}, varriver::Tuple{Int,Int}, G_dict)
-   
-    g_score = Dict{tripletAMR, Int}() 
     
+    g_score = Dict{tripletAMR, Float64}() 
     depart_triplet = tripletAMR(vdepart[1], vdepart[2], 0)
-    g_score[depart_triplet] = 0
-    
+    g_score[depart_triplet] = 0.0
     parents = Dict{tripletAMR, tripletAMR}()
-    
     nb_etat_evaluer = 0
-    maFile = PriorityQueue{tripletAMR, Int}()
+    maFile = PriorityQueue{tripletAMR, Float64}()
 
-    maFile[depart_triplet] = heuristique_Etoile_adaptation(depart_triplet, varriver)
+    maFile[depart_triplet] = 0.0 + h_adapter(depart_triplet, varriver)
 
     while !isempty(maFile)
         actuel = dequeue!(maFile)
         nb_etat_evaluer = nb_etat_evaluer + 1
 
-        if actuel.x == varriver[2] && actuel.y == varriver[1]
-            return (chemin = reconstruire_chemin_adaptation(parents, depart_triplet, actuel), 
-                    cout = g_score[actuel], 
-                    activite = nb_etat_evaluer)
+        if actuel.y == varriver[1] && actuel.x == varriver[2] 
+            chemin_suivi = reconstruire_chemin_adaptation(parents, depart_triplet, actuel)
+            return (chemin = chemin_suivi, cout = g_score[actuel], activite = nb_etat_evaluer)
         end
 
         for voisin in voisinage_adaptation(actuel, G, G_dict)
-            nouveau_h = heuristique_adapter(voisin) 
 
-            if !haskey(g_score, voisin) || nouveau_h < g_score[voisin]
-                g_score[voisin] = nouveau_h 
+            # --- LOGIQUE DE COÛT RÉEL ---
+            # Si le voisin a les mêmes coordonnées que l'actuel, c'est une ATTENTE
+            if voisin.x == actuel.x && voisin.y == actuel.y
+                poids_action = 1.0  # L'attente coûte 1 unité de temps par défaut
+            else
+                # Sinon, on récupère le coût réel du terrain (eau = 10, sol = 1, etc.)
+                poids_action = recup_cout_chemin(voisin.y, voisin.x, G)
+            end
+
+            nouveau_g = g_score[actuel] + poids_action 
+
+            if !haskey(g_score, voisin) || nouveau_g < g_score[voisin]
+                g_score[voisin] = nouveau_g 
                 parents[voisin] = actuel
                 
-                priorite_f = heuristique_Etoile_adaptation(voisin, varriver)
+                # f = g (coût réel cumulé) + h (estimation Manhattan)
+                priorite_f = nouveau_g + h_adapter(voisin, varriver)
                 maFile[voisin] = priorite_f
             end
         end

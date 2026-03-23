@@ -1,8 +1,8 @@
 module Structure_Part2
-export tripletAMR, MissionAMR
+export tripletAMR, AgentAMR
     struct tripletAMR
-        x::Int
         y::Int
+        x::Int
         t::Int
     end
 
