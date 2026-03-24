@@ -1,6 +1,3 @@
-#Ici je m'occupe de creer les systeme intelligent de navigation en fait ...
-
-
 function sous_ensemble_gauche(carte::Carte_Final_Value_Struct)
     liste_parking = []
     colonnes_stationnement = [1, 3]
@@ -15,15 +12,13 @@ function sous_ensemble_gauche(carte::Carte_Final_Value_Struct)
                 push!(liste_parking, (y, x))
             end
         end
-    end
-    
+    end  
     return liste_parking
 end
 
 function zone_relais(carte::Carte_Final_Value_Struct)
     liste_marchandises = []
     
-    # On définit le centre de la carte
     milieu_x = div(carte.width_val, 2)
     milieu_y = div(carte.height_val, 2)
     
@@ -53,32 +48,4 @@ function sous_ensemble_droit(carte::Carte_Final_Value_Struct)
         end
     end
     return liste_quais
-end
-
-#A REVOIR ....
-function mission(agent::RobotAMR, carte::Carte_Final_Value_Struct)
-    # On récupère les zones que tu as créées
-    parking = sous_ensemble_gauche(carte)
-    relais = zone_relais(carte)
-    quais = sous_ensemble_droit(carte)
-
-    if agent.etat == "DISPONIBLE"
-        # Le robot choisit une cible dans le rectangle central
-        agent.cible = relais[rand(1:end)] 
-        agent.etat = "VA_CHARGER"
-        
-    elseif agent.etat == "A_CHARGE"
-        # Le robot a récupéré son colis, il vise le quai à droite
-        agent.cible = quais[rand(1:end)]
-        agent.etat = "VA_LIVRER"
-        
-    elseif agent.etat == "A_LIVRE"
-        # Mission finie, il doit rentrer à SA place attitrée au parking
-        # On utilise son ID pour qu'il retrouve sa place précise
-        agent.cible = parking[agent.id] 
-        agent.etat = "RETOUR_PARKING"
-    end
-    
-    # Une fois la cible définie, on appelle ton A*
-    # chemin = A_star(agent.pos_actuelle, agent.cible, G_dict)
 end
