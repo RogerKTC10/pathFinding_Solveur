@@ -2,41 +2,41 @@ include("../Adaptation/Structure_Part2.jl")
 
 using .Commande
 
-function Carnet_Commandes()
-    mon_carnet = Vector{Commande}
-
+function Carnet_Commande()
+    mon_carnet = Commande[]
     return mon_carnet
 end
 
-function Generation_Commande(carnet, carte, capacite_max=100)
-    nb_colis_actuels = count(c -> !c.accomplie, carnet)
-
-    if nb_colis_actuels <= (capacite_max * 0.25)
+function Generation_Commande(carnet, carte)
+    
+    points_relais = zone_relais(carte)      # Tes 100 emplacements de colis
+    points_quais = sous_ensemble_droit(carte) # Tes points de déchargement
+    
+    for i in eachindex(points_relais)
+        source = points_relais[i]
+        idx_quai = ((i - 1) % length(points_quais)) + 1
+        destination = points_quais[idx_quai]
         
-        points_relais = zone_relais(carte)
-        points_quais = sous_ensemble_droit(carte)
-        positions_occupees = [c.position_relais for c in carnet if !c.accomplie]
-        places_libres = filter(p -> !(p in positions_occupees), points_relais)
-
-        println("Réapprovisionnement : $(length(places_libres)) nouveaux colis arrivés")
-
-        taille_initiale = length(carnet)
-        nb_quais = length(points_quais)
-
-        for i in 1:length(places_libres)
-            source = places_libres[i] 
-            idx_quai = ((taille_initiale + i - 1) % nb_quais) + 1
-            destination = points_quais[idx_quai]
-            
-            id_unique = taille_initiale + i
-            nouvelle_mission = Commande(id_unique, source, destination, false)
-            
-            push!(carnet, nouvelle_mission)
-        end
-    else
-        println("Stock OK : $nb_colis_actuels colis en zone relais.")
+        nouvelle = Commande(i, source, destination, false)
+        
+        push!(carnet, nouvelle)
     end
+    
+    println("Initialisation : $(length(carnet)) commandes générées dans le carnet.")
 end
 
-function attribution_Commande()
+global prochain_index = 1
+function attribution_Commande(agent::AgentAMR, carnet::Vector{Commande})
+    global prochain_index
+    
+    if prochain_index <= length(carnet)
+        mission = carnet[prochain_index]
+        
+        agent_mis_a_jour = AgentAMR(agent.id_Agent, mission.position_relais, mission.positio_droit)
+        prochain_index += 1
+        
+        return (agent_mis_a_jour, true)
+    else
+        return (agent, false)
+    end
 end

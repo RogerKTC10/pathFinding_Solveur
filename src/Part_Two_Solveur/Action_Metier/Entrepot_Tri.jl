@@ -1,18 +1,13 @@
 function sous_ensemble_gauche(carte::Carte_Final_Value_Struct)
     liste_parking = []
-    colonnes_stationnement = [1, 3]
-    derniere_ligne = carte.height_val
-
-    for y in 1:derniere_ligne
-        for x in colonnes_stationnement
-            if x == 3 && (y == 1 || y == derniere_ligne)
-                continue 
-            end
-            if carte.grille[y, x] == '.' 
-                push!(liste_parking, (y, x))
-            end
+    colonne_pk = 1    # Stationnement
+    colonne_out = 2   # Sortie (Boulevard)
+    
+    for y in 1:carte.height_val
+        if carte.grille[y, colonne_pk] == '.' && carte.grille[y, colonne_out] == '.'
+            push!(liste_parking, (y, colonne_pk))
         end
-    end  
+    end
     return liste_parking
 end
 
