@@ -9,8 +9,8 @@ end
 
 function Generation_Commande(carnet, carte)
     
-    points_relais = zone_relais(carte)      # Tes 100 emplacements de colis
-    points_quais = sous_ensemble_droit(carte) # Tes points de déchargement
+    points_relais = zone_relais(carte)      
+    points_quais = sous_ensemble_droit(carte)
     
     for i in eachindex(points_relais)
         source = points_relais[i]
