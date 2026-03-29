@@ -16,7 +16,8 @@ export tripletAMR, AgentAMR, Commande
     struct Commande
         id_colis_relais::Int
         position_relais::Tuple{Int, Int}
-        positio_droit::Tuple{Int, Int}
+        numero_sous_ensDroit::Int
+        position_droit::Tuple{Int, Int}
         accomplie::Bool
     end
 end
