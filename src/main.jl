@@ -1,60 +1,51 @@
-# On garde tes includes tels quels, ils sont dans le bon ordre
+# --- main.jl ---
+
 include("Part_Two_Solveur/Adaptation/Structure_Part2.jl")
 using .Structure_Part2
-include("Part_Two_Solveur/Adaptation/Evolution_A_etoile.jl")
-include("Part_Two_Solveur/Utilitaire_Part2.jl")
+include("./Security_Transformation/Structure.jl") 
+using .Struct_Carte
 include("Part_Two_Solveur/Action_Metier/DeplacementAMR.jl")
 
 function main()
+    # 1. Préparation de la Carte
     path = "data/street-map/Boston_0_512.map"
     matrice = Remplir_Matrice_Cons(path)
     matriceV = Remplir_Matrice_Value(matrice)
     carte = Struct_Carte.Constructeur_Matrice_Value(matriceV)
     
+    # 2. DÉFINITION DES ZONES (C'est ici que ça se passe)
+    # On appelle tes fonctions métier pour identifier les points sur la carte
+    parking_points = sous_ensemble_gauche(carte)
+    relais_points  = zone_relais(carte)  # <--- LA VOILÀ, TA ZONE RELAIS
+    quais_points   = sous_ensemble_droit(carte)
+
+    # 3. CRÉATION PHYSIQUE DES ROBOTS (AMR)
+    # On transforme les points de parking en objets "AgentAMR"
+    liste_agents = [Structure_Part2.AgentAMR(i, parking_points[i], (0, 0)) for i in 1:length(parking_points)]
+    
+    # 4. CRÉATION DU CARNET DE COMMANDES
     carnet = Carnet_Commande()
-    Generation_Commande(carnet, carte)
+    # On remplit le carnet en utilisant les zones qu'on vient de trouver
+    Generation_Commande(carnet, carte) 
 
-    # 3. Initialisation des Agents
-    parking_AMR = sous_ensemble_gauche(carte)
-    # On utilise bien parking_AMR[i] ici
-    liste_agents = [AgentAMR(i, parking_AMR[i], (0, 0)) for i in 1:20]
+    # 5. VÉRIFICATION ET SIMULATION
+    println("--- ÉTAT DU SYSTÈME ---")
+    println("Robots en zone parking : $(length(liste_agents))")
+    println("Points dans zone_relais : $(length(relais_points))")
+    println("Commandes générées     : $(length(carnet))")
     
-    println("✅ 20 Agents prêts au départ (Colonne 1).")
-
-    # 4. Planification Multi-Agents
-    println("\nCalcul des missions en cours...")
-    # On lance la planification globale
-    archives = planification_AMR(liste_agents, carnet, carte, nothing)
-
-    # 5. Affichage des Résultats
-    println("\n--- BILAN DE LA SIMULATION ---")
-    println("Nombre total de missions traitées : $(length(archives))")
-    
-    if !isempty(archives)
-        m1 = archives[1] # On récupère la première mission archivée
-        
-        # On affiche les détails en utilisant les bons noms de champs
-        println("----------------------------------------")
-        println("Robot ID      : $(m1.id_robot)")
-        println("Colis ID      : $(m1.id_colis)")
-        println("Destination   : $(m1.quai_final)") # Affiche le Tuple (y, x)
-        
-        # Vérification du temps final sur le trajet détaillé
-        temps_final = m1.trajet_detaille[end].t
-        println("Temps d'arrivée : $temps_final secondes")
-        println("----------------------------------------")
+    if !isempty(liste_agents) && !isempty(carnet)
+        println("\n🚀 Lancement de la planification...")
+        archives = planification_AMR(liste_agents, carnet, carte, nothing)
+        println("Simulation terminée avec succès.")
+    else
+        println("❌ ERREUR : La zone_relais ou le parking est vide sur Boston_0_512.")
     end
 end
 
-# Exécution
 main()
 
-
-
-
-
-"""
-    include("Security_Transformation/Transformation.jl")
+#=include("Security_Transformation/Transformation.jl")
     include("Comparaison.jl") 
     include("My_Algorithms/DataStructure_Min.jl")
     include("My_Algorithms/BFS_Doc/BFS.jl")
@@ -121,5 +112,5 @@ main()
     println("Etats A*: $(res_etoile.activite)\n")
     println("CPUtime A*: $(temps_etoile)\n")
     println("Les points du chemin A* sont : \n", res_etoile.chemin)
-    println("\n")"""
+    println("\n")=#
     

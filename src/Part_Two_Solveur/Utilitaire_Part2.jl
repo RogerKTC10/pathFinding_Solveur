@@ -4,21 +4,24 @@ include("../My_Algorithms/Utils_Algorithms.jl")
 
 using .Structure_Part2 
 using .Struct_Carte
-function voisinage_adaptation(triplet::tripletAMR, carte::Carte_Final_Value_Struct, G)
 
+# LIGNE 9 : On ajoute Struct_Carte. devant le type de la carte
+function voisinage_adaptation(triplet::Structure_Part2.tripletAMR, carte::Struct_Carte.Carte_Final_Value_Struct, G)
     y_act = triplet.y
     x_act = triplet.x
     t_act = triplet.t
     t_suiv = t_act + 1
 
-    candidats = [tripletAMR(y_act - 1, x_act, t_suiv), tripletAMR(y_act + 1, x_act, t_suiv), 
-                 tripletAMR(y_act, x_act + 1, t_suiv), tripletAMR(y_act, x_act - 1, t_suiv),
-                 tripletAMR(y_act, x_act, t_suiv)]
+    candidats = [Structure_Part2.tripletAMR(y_act - 1, x_act, t_suiv), 
+                 Structure_Part2.tripletAMR(y_act + 1, x_act, t_suiv), 
+                 Structure_Part2.tripletAMR(y_act, x_act + 1, t_suiv), 
+                 Structure_Part2.tripletAMR(y_act, x_act - 1, t_suiv),
+                 Structure_Part2.tripletAMR(y_act, x_act, t_suiv)]
     
-    voisins_valides = tripletAMR[]
+    voisins_valides = Structure_Part2.tripletAMR[]
     
     for c in candidats
-        
+        # On utilise les champs de la carte (assure-toi que les noms height_val/width_val sont exacts)
         if c.y >= 1 && c.y <= carte.height_val && 
            c.x >= 1 && c.x <= carte.width_val
             if BFS_Action_dict(c.y, c.x, G) 
@@ -29,38 +32,33 @@ function voisinage_adaptation(triplet::tripletAMR, carte::Carte_Final_Value_Stru
     return voisins_valides
 end
 
-function g_adapter(triplet::tripletAMR)
+function g_adapter(triplet::Structure_Part2.tripletAMR)
     return triplet.t
 end
-function h_adapter(triplet::tripletAMR, arrivee::Tuple{Int, Int})
+
+function h_adapter(triplet::Structure_Part2.tripletAMR, arrivee::Tuple{Int, Int})
     return abs(triplet.y - arrivee[1]) + abs(triplet.x - arrivee[2])
 end
 
 function heuristique_Etoile_adaptation(triplet::Structure_Part2.tripletAMR, arrivee::Tuple{Int, Int})
-    func_adapter = g_adapter(triplet) + h_adapter(triplet, arrivee)
-
-    return func_adapter
+    return g_adapter(triplet) + h_adapter(triplet, arrivee)
 end
 
-function recup_cout_chemin(y::Int, x::Int, carte::Carte_Final_Value_Struct)
+# LIGNE 53 : Idem ici, on précise le module
+function recup_cout_chemin(y::Int, x::Int, carte::Struct_Carte.Carte_Final_Value_Struct)
     return carte.grille_val[y, x] 
 end
 
 function reconstruire_chemin_adaptation(parents, depart_triplet, arrivee_triplet)
     chemin = []
     actuel = arrivee_triplet 
-    
     while actuel != depart_triplet
         push!(chemin, actuel)
-
         if !haskey(parents, actuel)
             error("Le chemin est en perte ou inexistant")
         end
-
         actuel = parents[actuel]
     end
-    
     push!(chemin, depart_triplet)
-    chemin_inverse =  reverse(chemin)
-    return chemin_inverse
+    return reverse(chemin)
 end

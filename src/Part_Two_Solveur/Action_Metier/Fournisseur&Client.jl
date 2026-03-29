@@ -1,14 +1,13 @@
 include("../Adaptation/Structure_Part2.jl")
 
-using .Commande
+using .Structure_Part2
 
 function Carnet_Commande()
-    mon_carnet = Commande[]
+    mon_carnet = Structure_Part2.Commande[] 
     return mon_carnet
 end
 
 function Generation_Commande(carnet, carte)
-    
     points_relais = zone_relais(carte)      
     points_quais = sous_ensemble_droit(carte)
     
@@ -18,7 +17,8 @@ function Generation_Commande(carnet, carte)
         idx_quai = ((i - 1) % length(points_quais)) + 1
         destination = points_quais[idx_quai]
         
-        nouvelle = Commande(id_du_colis, source, idx_quai, destination, false)
+        # On précise le module pour le constructeur
+        nouvelle = Structure_Part2.Commande(id_du_colis, source, idx_quai, destination, false)
         
         push!(carnet, nouvelle)
     end
@@ -27,16 +27,20 @@ function Generation_Commande(carnet, carte)
 end
 
 global prochain_index = 1
-function attribution_Commande(agent::AgentAMR, carnet::Vector{Commande})
+
+# On précise le module pour les types dans les arguments
+function attribution_Commande(agent::Structure_Part2.AgentAMR, carnet::Vector{Structure_Part2.Commande})
     global prochain_index
     
     if prochain_index <= length(carnet)
         mission = carnet[prochain_index]
         
-        agent_mis_a_jour = AgentAMR(
+        # On précise le module pour créer le nouvel agent
+        agent_mis_a_jour = Structure_Part2.AgentAMR(
             agent.id_Agent, 
             mission.position_relais,
             mission.position_droit)
+            
         prochain_index = prochain_index + 1        
         return (agent_mis_a_jour, mission, true)
     else

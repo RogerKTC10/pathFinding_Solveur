@@ -2,8 +2,11 @@ include("AMR.jl")
 include("Entrepot_Tri.jl")
 include("Fournisseur&Client.jl")
 
-function calcul_mission_complete(agent::AgentAMR, commande::Commande, carte, G_dict)
+# Utilisation de Structure_Part2. pour lever l'ambiguïté sur les types
+function calcul_mission_complete(agent::Structure_Part2.AgentAMR, commande::Structure_Part2.Commande, carte, G_dict)
     t_initial = 0 
+    
+    # On appelle ton solveur A* (assure-toi que les arguments correspondent à ta définition)
     chemin_aller, cout_1, nodes_1 = execution_Etoile_Adaptation(agent.depart_ag, commande.position_relais, t_initial, carte, G_dict)
     
     t_arrivee_colis = chemin_aller[end].t 
@@ -12,9 +15,10 @@ function calcul_mission_complete(agent::AgentAMR, commande::Commande, carte, G_d
 
     chemin_total = vcat(chemin_aller, chemin_livraison[2:end])
     
-    nouvel_agent = AgentAMR(agent.id_Agent, commande.position_droit, (0,0))
+    # On reconstruit l'agent avec sa nouvelle position de fin (le quai)
+    nouvel_agent = Structure_Part2.AgentAMR(agent.id_Agent, commande.position_droit, (0,0))
     
-    return (trajet = chemin_total,  agent_mis_a_jour = nouvel_agent, cout_total = cout_1 + cout_2, exploration = nodes_1 + nodes_2)
+    return (trajet = chemin_total, agent_mis_a_jour = nouvel_agent, cout_total = cout_1 + cout_2, exploration = nodes_1 + nodes_2)
 end
 
 function planification_AMR(liste_agents, carnet, carte, G_dict)
@@ -26,27 +30,26 @@ function planification_AMR(liste_agents, carnet, carte, G_dict)
         
         res = calcul_mission_complete(agent_actuel, mission, carte, G_dict)
         
-        info_precise = (id_robot = agent_actuel.id_Agent, id_colis = mission.id_colis_relais, quai_final = mission.id_sous_ensemble_droit, trajet_detaille = res.trajet)
+        # Utilisation de id_colis_relais comme tu l'as confirmé
+        info_precise = (
+            id_robot = agent_actuel.id_Agent, 
+            id_colis = mission.id_colis_relais, 
+            quai_final = mission.id_sous_ensemble_droit, 
+            trajet_detaille = res.trajet
+        )
         push!(archives_missions, info_precise)
         
-        agent_mis_a_jour = AgentAMR(agent_actuel.id_Agent, mission.position_droit,(0,0))
-        
+        # Mise à jour de l'agent dans la liste pour la prochaine itération
+        agent_mis_a_jour = Structure_Part2.AgentAMR(agent_actuel.id_Agent, mission.position_droit, (0,0))
         liste_agents[idx_robot] = agent_mis_a_jour
     end
-    println("Planification definie : $(length(archives_missions)) des missions.")
+    
+    println("Planification définie : $(length(archives_missions)) missions générées.")
     return archives_missions
 end
 
-function Gestion_des_Accidents()
-end
-
-function reunir_stat()
-end
-
-function retour_final_fin()
-end
-
-function affichage_de_mes_sortie()    
-end
-
-
+# Les fonctions suivantes restent pour la structure de ton projet
+function Gestion_des_Accidents() end
+function reunir_stat() end
+function retour_final_fin() end
+function affichage_de_mes_sortie() end

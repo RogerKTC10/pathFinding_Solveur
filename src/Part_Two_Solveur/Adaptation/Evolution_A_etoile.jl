@@ -1,15 +1,17 @@
 include("../Utilitaire_Part2.jl")
 
 using DataStructures
+using .Structure_Part2  # On s'assure d'avoir accès aux modules
+using .Struct_Carte
 
-function execution_Etoile_Adaptation(G::Carte_Final_Value_Struct, vdepart::Tuple{Int,Int}, varriver::Tuple{Int,Int}, G_dict)
+function execution_Etoile_Adaptation(G::Struct_Carte.Carte_Final_Value_Struct, vdepart::Tuple{Int,Int}, varriver::Tuple{Int,Int}, G_dict)
     
-    g_score = Dict{tripletAMR, Float64}() 
-    depart_triplet = tripletAMR(vdepart[1], vdepart[2], 0)
+    g_score = Dict{Structure_Part2.tripletAMR, Float64}() 
+    depart_triplet = Structure_Part2.tripletAMR(vdepart[1], vdepart[2], 0)
     g_score[depart_triplet] = 0.0
-    parents = Dict{tripletAMR, tripletAMR}()
+    parents = Dict{Structure_Part2.tripletAMR, Structure_Part2.tripletAMR}()
     nb_etat_evaluer = 0
-    maFile = PriorityQueue{tripletAMR, Float64}()
+    maFile = PriorityQueue{Structure_Part2.tripletAMR, Float64}()
 
     maFile[depart_triplet] = 0.0 + h_adapter(depart_triplet, varriver)
 
