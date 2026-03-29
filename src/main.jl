@@ -6,8 +6,62 @@ include("My_Algorithms/Djistkra_Doc/Djistkra.jl")
 include("My_Algorithms/Glouton_Doc/Glouton.jl")
 include("My_Algorithms/A_Doc/A_etoile.jl")
 
+#PARTIE 2 DU CROSS-DOCKING PROJECT
+include("Part_Two_Solveur/Adaptation/Evolution_A_etoile.jl")
+include("Part_Two_Solveur/Utilitaire_Part2.jl")
+include("Part_Two_Solveur/Action_Metier/DeplacementAMR.jl")
+
+
 function main()
     path = "data/street-map/Boston_0_512.map"
+    matrice = Remplir_Matrice_Cons(path)
+    matriceV = Remplir_Matrice_Value(matrice)
+
+    carte = Struct_Carte.Constructeur_Matrice_Value(matriceV)
+    carnet = Carnet_Commande()
+
+    Generation_Commande(carnet, carte)
+
+    parking_AMR = sous_ensemble_gauche(carte)
+    # On crée les agents (AgentAMR) au parking
+    liste_agents = [AgentAMR(i, parking[i], (0, 0)) for i in 1:20]
+    println("✅ 20 Agents prêts au départ (Colonne 1).")
+
+    # --- ÉTAPE 4 : PLANIFICATION ---
+    # Ici, G_dict peut être 'nothing' ou ta matriceV, 
+    # car ton A* pioche déjà dans 'carte.grille_val'
+    println("\nCalcul des missions en cours...")
+    
+    archives = planification_AMR(liste_agents, carnet, carte, nothing)
+
+    # --- ÉTAPE 5 : RÉSULTATS ---
+    println("\n--- BILAN DE LA SIMULATION ---")
+    println("Nombre total de missions : $(length(archives))")
+    
+    # Petit test de lecture sur la première mission
+    if !isempty(archives)
+        m1 = archives[1]
+        println("Robot $(m1.id_robot) -> Colis $(m1.id_colis) livré au quai $(m1.quai_final)")
+        println("Durée totale (temps discret) : $(m1.trajet_detaille[end].t)")
+    end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    """path = "data/street-map/Boston_0_512.map"
     matrice = Remplir_Matrice_Cons(path)
     matriceV = Remplir_Matrice_Value(matrice)
 
@@ -66,7 +120,7 @@ function main()
     println("Etats A*: $(res_etoile.activite)\n")
     println("CPUtime A*: $(temps_etoile)\n")
     println("Les points du chemin A* sont : \n", res_etoile.chemin)
-    println("\n")
+    println("\n")"""
     
 end
 
