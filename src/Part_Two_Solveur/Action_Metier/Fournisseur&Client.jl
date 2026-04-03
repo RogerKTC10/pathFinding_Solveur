@@ -21,9 +21,10 @@ function Generation_Commande(carnet, carte)
         nouvelle = Structure_Part2.Commande(id_du_colis, source, idx_quai, destination, false)
         
         push!(carnet, nouvelle)
+        println("Commande $i : Case_CMD $source ➔ Case_QUAI $destination (Quai N° $idx_quai)")
     end
     
-    println("Initialisation : $(length(carnet)) commandes générées dans le carnet.")
+    println("Total Commande du relais : $(length(carnet)) commandes générées dans le carnet.")
 end
 
 global prochain_index = 1

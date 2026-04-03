@@ -25,17 +25,11 @@ module  Struct_Carte
     #-----------CONSTRUCTEUR MATRICE_CONS DIRECTE-----------#
 
     function Constructeur_Matrice_Cons(grille::Matrix{Char})
-        Carte_final_Struct(
-            grille, 
-            size(grille, 1),
-            size(grille, 2))
+        Carte_final_Struct(grille, size(grille, 1), size(grille, 2))
     end
 
     function Constructeur_Matrice_Value(grille_poids::Matrix{Float64})
-        Carte_Final_Value_Struct(
-           grille_poids, 
-           size(grille_poids, 1),
-           size(grille_poids, 2))
+        Carte_Final_Value_Struct(grille_poids, size(grille_poids, 1), size(grille_poids, 2))
     end
 
 end
