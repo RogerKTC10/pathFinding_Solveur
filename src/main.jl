@@ -42,9 +42,11 @@ function main()
 
     Generation_Commande(mon_carnet, carte)
     liste_robots = []
+    positions_depart = []
     for i in 1:15
         p_init = parking_points[i]
         push!(liste_robots, Structure_Part2.AgentAMR(i, p_init, (0,0)))
+        push!(positions_depart, p_init)
     end
 
     G_dict = Dict{Tuple{Int, Int, Int}, Float64}() 
@@ -57,11 +59,15 @@ function main()
     end
 
     println("Planification debut")
-    tous_les_trajets = planification_AMR(liste_robots, mon_carnet, carte, G_dict, intervalles_dict)
+    mes_archives, temps_finaux = planification_AMR(liste_robots, mon_carnet, carte, G_dict, intervalles_dict)
 
-    if !isempty(tous_les_trajets)
-        reunir_stats(tous_les_trajets)
+    if !isempty(mes_archives)
+        reunir_stats(mes_archives)
         println("Planification terminée. Les robots ont évité les collisions.")
+
+        println("\nLancement de la phase de retour au Parking en fin de mission")
+        mission_retour_parking(liste_robots, positions_depart, carte, G_dict, intervalles_dict, temps_finaux)
+
     else
         println("Erreur : Aucune mission n'a pu être planifiée.")
     end

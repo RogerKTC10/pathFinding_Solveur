@@ -87,7 +87,7 @@ function planification_AMR(liste_agents, carnet, carte, G_dict, intervalles_dict
             println("Mission $i (Robot $(agent_actuel.id_Agent)) : Impossible à T=$t_start")
         end
     end
-    return archives_missions
+    return archives_missions, temps_fin_robots
 end
 
 function reunir_stats(archives_missions)
@@ -101,26 +101,56 @@ function reunir_stats(archives_missions)
     missions_par_robot = Dict{Int, Int}()
 
     for m in archives_missions
-      if m.duree < Inf
-        total_temps += m.duree
-        total_pas = total_pas + length(m.trajet_detaille)
-        id = m.id_robot
-        missions_par_robot[id] = get(missions_par_robot, id, 0) + 1
-      end
+        if m.duree < Inf
+            total_temps += m.duree
+            total_pas = total_pas + length(m.trajet_detaille)
+            id = m.id_robot
+            missions_par_robot[id] = get(missions_par_robot, id, 0) + 1
+        end
     end
-    println("BILAN DES MISSIONS :")
-    println("Nombre total de missions : ", length(archives_missions))
-    println("Distance totale : ", total_pas, " cases")
-    println("Temps moyen : ", round(total_temps / length(archives_missions), digits=2))
+
+    println("\n" * "="^80)
+    println("BILAN GÉNÉRAL DES MISSIONS (CARTE BERLIN)")
+    println("Total : ", length(archives_missions), " missions | Distance : ", total_pas, " cases | Moyenne : ", round(total_temps / length(archives_missions), digits=2))
+    println("="^80)
+
+    println("\nRépartition de la charge de travail :")
     
-    println("Missions par AMR :")
-    for id in sort(collect(keys(missions_par_robot)))
-        println("AMR $id : $(missions_par_robot[id])")
+    ids = sort(collect(keys(missions_par_robot)))
+
+    print("  AMR N°    : ") 
+    for id in ids
+        print("| ", rpad(id, 2), " ")
     end
+    println("|")
+
+    print("              ") 
+    for _ in ids
+        print("-----")
+    end
+    println("-")
+
+    print(" Nbre MISS  : ") 
+    for id in ids
+        print("| ", rpad(missions_par_robot[id], 2), " ")
+    end
+    println("|")
+    println("-"^((length(ids)*5)+15))
 end
 
-function retour_final_fin() 
+
+function mission_retour_parking(liste_agents, positions_initiales, carte, G_dict, intervalles_dict, temps_fin_robots)
+    for i in eachindex(liste_agents)
+        agent_actuel = liste_agents[i]
+        parking_cible = positions_initiales[i]
+        t_depart = temps_fin_robots[i]
+
+        chemin_ret, cout_ret, nodes_ret = execution_Etoile_Adaptation(carte, agent_actuel.depart_ag, parking_cible, G_dict, intervalles_dict, t_depart)
+        if !isempty(chemin_ret)
+           Mise_a_jour_Intervalles!(intervalles_dict, chemin_ret)
+           liste_agents[i] = Structure_Part2.AgentAMR(agent_actuel.id_Agent, parking_cible, (0,0))
+        end
+    end
+     println("Tous les robots sont retourner a la zone de Parking")
 end
 
-function affichage_de_mes_sortie() 
-end
