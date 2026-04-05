@@ -11,61 +11,77 @@ using .Structure_Part2
 using .Struct_Carte
 
 function main()
-    path = "data/street-map/Boston_0_512.map"
+    path = "data/street-map/Berlin_0_512.map"
     matrice = Remplir_Matrice_Cons(path)
     matriceV = Remplir_Matrice_Value(matrice)
     carte = Struct_Carte.Constructeur_Matrice_Value(matriceV)
     
-    # 3. EXTRACTION DES POINTS
     parking_points = sous_ensemble_gauche(carte)
-    println("Les parkings sont : ", length(parking_points))
+    println("Le nombre de place parkings sont : ", length(parking_points))
     #=for (i, coord) in enumerate(parking_points)
         println("Place $i :  ($(coord[1]), $(coord[2]))")
     end=#
     
     zone_transfert = zone_relais(carte)
-    println("Mes points de zones de transforts : ", length(zone_transfert))
+    println("Le nombre de colis dans la zones de transforts : ", length(zone_transfert))
     #=for (i, coord) in enumerate(zone_transfert)
         println("Relais $i :  ($(coord[1]), $(coord[2]))")
     end=#
     
 
     quai_dechargement = sous_ensemble_droit(carte)
-    println("Mes zone de dechargements :", length(quai_dechargement))
+    println("Le nombre de quai de dechargements :", length(quai_dechargement))
     #=for (i, coord) in enumerate(quai_dechargement)
         println("Quai $i :  ($(coord[1]), $(coord[2]))")
     end=#
     
     #---------CARNET DE COMMANDE---
-    tous_les_trejets = []
+    tous_les_trajets = []
     mon_carnet = Carnet_Commande()
     #println("Liste de mes commandes disponible pour mes AMR : \n", mon_carnet)
 
     Generation_Commande(mon_carnet, carte)
-
-    robot_test = Structure_Part2.AgentAMR(1, parking_points[1], (0,0))
-    commande_1 = mon_carnet[1]
+    liste_robots = []
+    for i in 1:15
+        p_init = parking_points[i]
+        push!(liste_robots, Structure_Part2.AgentAMR(i, p_init, (0,0)))
+    end
 
     G_dict = Dict{Tuple{Int, Int, Int}, Float64}() 
     intervalles_dict = Dict{Tuple{Int, Int}, Vector{Tuple{Int, Int}}}()
 
     for y in 1:carte.height_val
         for x in 1:carte.width_val
-            intervalles_dict[(y, x)] = [(0, 1000)] 
+            intervalles_dict[(y, x)] = [(0, 500000)] 
         end
     end
 
+    println("Planification debut")
+    tous_les_trajets = planification_AMR(liste_robots, mon_carnet, carte, G_dict, intervalles_dict)
+
+    if !isempty(tous_les_trajets)
+        reunir_stats(tous_les_trajets)
+        println("Planification terminée. Les robots ont évité les collisions.")
+    else
+        println("Erreur : Aucune mission n'a pu être planifiée.")
+    end
+    #=robot_test = Structure_Part2.AgentAMR(1, parking_points[1], (0,0))
+    commande_1 = mon_carnet[1]
+
+    
+    
+
     resultat = calcul_mission_complete(robot_test, commande_1, carte, G_dict, intervalles_dict)
     if resultat !== nothing
-        push!(tous_les_trejets, resultat)
-        println("Trajet total : $(length(resultat.trajet)) étapes.")
+        push!(tous_les_trajets, resultat)
+        println("Trajet total : $(length(resultat.trajet)) etats")
         println("Départ : $(parking_points[1])")
         println("Relais : $(commande_1.position_relais)")
         println("Quai : $(commande_1.position_droit)")
         temps_arrivee = resultat.trajet[end].t
         println("Le robot arrive au quai à T = $temps_arrivee")
 
-    end
+    end=#
 end
 main()
 

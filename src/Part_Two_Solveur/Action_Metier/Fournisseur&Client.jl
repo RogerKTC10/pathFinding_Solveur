@@ -16,12 +16,10 @@ function Generation_Commande(carnet, carte)
         source = points_relais[i]
         idx_quai = ((i - 1) % length(points_quais)) + 1
         destination = points_quais[idx_quai]
-        
-        # On précise le module pour le constructeur
         nouvelle = Structure_Part2.Commande(id_du_colis, source, idx_quai, destination, false)
         
         push!(carnet, nouvelle)
-        println("Commande $i : Case_CMD $source ➔ Case_QUAI $destination (Quai N° $idx_quai)")
+        #println("Commande $i : Case_CMD $source ➔ Case_QUAI $destination (Quai N° $idx_quai)")
     end
     
     println("Total Commande du relais : $(length(carnet)) commandes générées dans le carnet.")
