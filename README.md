@@ -1,51 +1,77 @@
-# pathFinding_Solveur PROJET SCIENTIFIQUE NANTES UNIVERSITE par N'TCHAM KOMINA ROGER.
+# pathFinding_Solveur and CROSS-DOCKING Solveur PROJET SCIENTIFIQUE NANTES UNIVERSITE par N'TCHAM KOMINA ROGER.
 
-----PRECISION---- 
-La documentation n'est pas fait pour ce premier JALON, toute les info importantes sont dans le "README". Je prepare la documentation pour le rendu final , qui sera bien Structuré et explicatif au maximun.
+Ce projet implémente une solution de planification de trajectoires multi-agents (MAPF) pour une flotte de 15 robots mobiles autonomes (AMR) dans un système de Cross-Docking basé sur la carte réelle transformé en un systeme logistique de Cross-Dock.
 
-Pour exécuter mon travail, juste le lancer dans le terminal avec julia + include ("src/fichiermain.extension") et vous verrez les resultats dans le terminal.
+--------------------------------------------------------------------------------------------------------------------
 
-Concernant la complexité des functions de mon code, je les mettrai dans la documentation du rendu final , bien expliquer, mais la logique de travail que je suis est bien structurer pour reduire au mieux les complexités afin de ne pas trop peser sur la machine en fait ...
-                 --------------------------------------------------------------------------------------
-                        Travail Réalisé par N'TCHAM KOMINA ROGER (Etudiant à Nantes Université)
-                 --------------------------------------------------------------------------------------
+    * Etape d' Exécution du programme
+Pour lancer la simulation et afficher le bilan statistique :
 
-                  Mini_ SOLVEUR qui definis un chemin optimal sur une carte 2d avec une vue de graphe.
+- Ouvrez Julia dans le dossier racine du projet.
 
-#------------------------------------------------------------------------------------------------------------------#
+- Exécutez la commande suivante : Julia include("src/main.jl")
 
-    PROJET SCIENTIFIQUE : SOLUTION LOGICIELLE QUI PERMET DE TROUVER UN MEILLEUR CHEMIN A PARTIR D'UN ALGORITHME
+--------------------------------------------------------------------------------------------------------------------
 
-#------------------------------------------------------------------------------------------------------------------#
+    * Configuration du Système
+Le projet transforme la topologie urbaine en un entrepôt logistique structuré :
 
-Détails de mon idée : La solution logicielle développée consiste en un programme Julia permettant d’implémenter et de comparer plusieurs algorithmes de recherche de plus court chemin sur une grille 2D contrainte.
-Le programme intègre une phase de comparaison au cours de laquelle les algorithmes sont évalués selon différents critères, tels que le coût du chemin obtenu, le nombre de nœuds explorés et l’usage mémoire.
+- Parking (Zone Ouest) : Zone initial des AMR (Départ et retour final des 15 AMR)
 
-NB : Ce projet sera réalisé en "Julia" et est présenter comme un projet de scientifique de stage par la L3 INFO-MATHS de Nantes Université.
+- Zone de Relais (Centre) : Definition d'un carré centrale 20 * 20 qui constitue notre zone centrale de depot temporaire des colis
 
+- Quais de Déchargement (Zone Est) : Zone de Livraison finale des commandes.
 
-Note : Pour l'instant l'affichage avec le paquettage "Plots" de julia n'est pas encore au points, mais je pense qu'elle le sera à la fin de la 2eme partie.
+--------------------------------------------------------------------------------------------------------------------
 
-Aussi je tiens à préciser que j'ai mis des petit commentaire dans mon code afin de pouvoir me reperer de fichier en fichier .
+    * Spécifications Techniques
+Algorithmes : A* adapté combiné au SIPP (Safe Interval Path Planning) pour la gestion des collisions temporelles.
 
-PAR SOUCIS DE TEST, j'ai ecris une fonction trouver_points_pieges() pour pouvoir mettre mes points de depart et d'arriver un peu en avant et un peu en arriere des zones d'eau ou de sables en vue de voir l'activité et la difference d'action des algorithme implémenter .
+Performance : Planification de 309 missions avec équilibrage de charge automatisé.
 
+Statistiques : Calcul en temps réel de la distance totale (env. 300 000+ cases) et du temps moyen.
 
-les fichiers "affichage.jl" n'est pas encore au point, et elle ne concerne pas ce premier rendu. 
+--------------------------------------------------------------------------------------------------------------------
 
-L'essentielle de cette 1ere partie (Impléméntation des algorithme de recherche de chemin) sont implémenter avec les resultats visible.
+    * Structure du Projet
+Architecture Structurelle que j'ai décidé de mettre en Oeuvre et de suivre :
 
-*La majeur partie du code est écrit dans le dossier src/ avec une separation conforme pour chaque algorithme.
+N-TCHAM_KOMINA_ROGER_PATHFINDING_SOLVEUR/
+├── data/  
+│     ├──street-map/ 
+│     └──wc3maps512-map/                
+├── doc/ 
+│    ├──Documentation_Cross-Docking_N-TCHAM.pdf           
+├── res/ # TEST ET DEMONSTRATION
+├── src/ # ASPECT CODE
+│   ├── My_Algorithms/ 
+│   │   └──A_Doc/
+│   │   │    └──A_etoile.jl 
+│   │   └──BFS_Doc/ 
+│   │   │    └──BFS.jl
+│   │   └──Djistkra_Doc/
+│   │   │    └──Djisktra.jl
+│   │   └──Glouton_Doc/
+│   │   │    └──Glouton.jl
+│   │   └──DataStructure_Min.jl
+│   │   └──Utils_Algorithms.jl
+│   ├── Part_Two_Solveur/  
+│   │   └── Action_Metier/
+│   │   │    └──AMR.jl 
+│   │   │    └──DeplacementAMR.jl
+│   │   │    └──Entrepot_Tri.jl
+│   │   │    └──Fournisseur&Client.jl
+│   │   └── Adaptation/  
+│   │   │    └──Evolution_A_etoile.jl
+│   │   │    └──Structure_Part2.jl 
+│   ├── Utilitaire_Part2.jl
+│   ├── Security_Transformation/
+│   │          └──FileSecurity.jl
+│   │          └──Structure.jl
+│   │          └──Transformation.jl
+│   ├── Comparaison.jl (Optionnel mais que j'ai mis qui concerne la partie 1)
+│   └── main.jl            
+└── README.md     
 
-BFS : Il suit une logique de propagation case par case. il se déploie à partir du point de départ comme une onde circulaire, explorant la grille (Graphe representé sous forme matricielle) sans aucun discernement. Chaque case est traitée comme une unité équivalente, l'algorithme ne progressant vers une nouvelle "couronne" de voisins que lorsqu'il a épuisé toutes les possibilités de la profondeur actuelle. Cette progression par balayage systématique lui permet de couvrir l'espace de manière exhaustive, garantissant la découverte du chemin le plus court en nombre de pas, mais au prix d'une exploration aveugle qui ignore la direction de l'arrivée ou la difficulté réelle du terrain.
+--------------------------------------------------------------------------------------------------------------------
 
-Djisktra : Quant à lui, il suit une logique suit une logique de pondération : il ne se contente plus de compter les cases, mais il évalue l'effort réel nécessaire pour les traverser. Au lieu d'une onde circulaire uniforme, son exploration se déforme et s'adapte au relief de la carte, privilégiant les sentiers faciles même s'ils rallongent la distance géométrique. En utilisant une file de priorité, il délaisse la progression case par case pour se concentrer systématiquement sur le nœud le "moins coûteux" du front d'expansion, garantissant ainsi une efficacité aspect cout lors de la recherche du chemin optimal.
-
-Glouton : Ici il suit une logique d'instinct et d'anticipation : il délaisse totalement le coût du chemin déjà parcouru pour ne se concentrer que sur la distance estimée restant à parcourir. Contrairement à Dijkstra qui regarde en arrière pour assurer l'économie, le Glouton regarde exclusivement vers l'avant, choisissant systématiquement la case qui semble la plus proche de l'arrivée selon une fonction heuristique.
-
-A* : quant à lui, il suit une logique de compromis optimal : il fusionne la prudence de Dijkstra avec l'ambition du Glouton. Son originalité réside dans l'utilisation d'une fonction d'évaluation combinée,  que j'ai appeler "heuristique_Etoile" f(n) = g(n) + h(n), où il additionne le coût réel déjà payé (g) et l'estimation du coût restant (h). Cette approche permet de garantir l'optimalité du chemin trouvé (comme Dijkstra) tout en réduisant considérablement le nombre de nœuds explorés grâce au guidage de l'heuristique (comme le Glouton).
-
-
-
-
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
