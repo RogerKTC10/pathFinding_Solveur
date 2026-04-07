@@ -31,7 +31,7 @@ end
 
 function calculer_cout_chemin(chemin, matriceChar)
     total_facture = 0.0
-    for k in 2:length(chemin)
+    for k in eachindex(chemin)[2:end]
         i, j = chemin[k]
         caractere = matriceChar[i, j]
         prix_passage = valuation(caractere)
