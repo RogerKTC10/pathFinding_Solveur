@@ -1,7 +1,4 @@
 # pathFinding_Solveur and CROSS-DOCKING Multi-Agent Solveur PROJET SCIENTIFIQUE NANTES UNIVERSITE par N'TCHAM KOMINA ROGER.
-
-Ce projet implémente une solution de planification de trajectoires multi-agents (MAPF) pour une flotte de 15 robots mobiles autonomes (AMR) dans un système de Cross-Docking basé sur la carte réelle transformé en un systeme logistique de Cross-Dock.
-
 --------------------------------------------------------------------------------------------------------------------
 
     * Etape d' Exécution du programme
@@ -9,9 +6,11 @@ Pour lancer la simulation et afficher le bilan statistique :
 
 - Ouvrez Julia dans le dossier racine du projet.
 
-- Exécutez la commande suivante : Julia  Puis
+- Exécutez la commande suivante : 
+------------------------
+Julia  
 include("src/main.jl")
-
+------------------------
 --------------------------------------------------------------------------------------------------------------------
 
     * Configuration du Système
