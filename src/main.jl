@@ -1,5 +1,4 @@
-# 1. INCLUDES (L'ordre est vital)
-include("Part_Two_Solveur/Adaptation/Structure_Part2.jl")
+#=include("Part_Two_Solveur/Adaptation/Structure_Part2.jl")
 include("Part_Two_Solveur/Adaptation/Evolution_A_etoile.jl")
 include("./Security_Transformation/Structure.jl") 
 include("./Security_Transformation/Transformation.jl")
@@ -90,17 +89,18 @@ function main()
 
     end=#
 end
-main()
+main()=#
 
-#=include("Security_Transformation/Transformation.jl")
+include("Security_Transformation/Transformation.jl")
     include("Comparaison.jl") 
     include("My_Algorithms/DataStructure_Min.jl")
     include("My_Algorithms/BFS_Doc/BFS.jl")
     include("My_Algorithms/Djistkra_Doc/Djistkra.jl")
     include("My_Algorithms/Glouton_Doc/Glouton.jl")
     include("My_Algorithms/A_Doc/A_etoile.jl")
-    
-    path = "data/street-map/Boston_0_512.map"
+    using .Struct_Carte
+    function main()
+        path = "data/street-map/Boston_0_512.map"
     matrice = Remplir_Matrice_Cons(path)
     matriceV = Remplir_Matrice_Value(matrice)
 
@@ -137,27 +137,32 @@ main()
     println("Distance BFS: $cout_reel_bfs \n")
     println("Etats BFS: $(res_bfs.activite)\n")
     println("CPUtime BFS: $(temps_bfs)\n")
-    println("Les points du chemin BFS sont : \n", res_bfs.chemin)
+    
     println("\n")
 
     println("Solution Djisktra: \n")
     println("Distance Djisktra: $(res_djis.cout)\n")
     println("Etats Djiskstra: $(res_djis.activite)\n")
     println("CPUtime Djiskstra: $(temps_djis)\n")
-    println("Les points du chemin Djikstra sont : \n", res_djis.chemin)
     println("\n")
     
     println("Solution Glouton: \n")
     println("Distance Glouton: $(res_glouton.distance)\n")
     println("Etats Glouton: $(res_glouton.activite)\n")
     println("CPUtime Glouton: $(temps_glouton)\n")
-    println("Les points du chemin Glouton sont : \n", res_glouton.chemin)
     println("\n")
 
     println("Solution A*: \n")
     println("Distance A*: $(res_etoile.cout)\n")
     println("Etats A*: $(res_etoile.activite)\n")
     println("CPUtime A*: $(temps_etoile)\n")
+    
+    println("\n")
+
+    println("Les points du chemin BFS sont : \n", res_bfs.chemin)
+    println("Les points du chemin Djikstra sont : \n", res_djis.chemin)
+    println("Les points du chemin Glouton sont : \n", res_glouton.chemin)
     println("Les points du chemin A* sont : \n", res_etoile.chemin)
-    println("\n")=#
+    end
+    
     
