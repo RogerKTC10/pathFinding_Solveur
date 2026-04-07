@@ -63,6 +63,7 @@ function main()
 
     if !isempty(mes_archives)
         reunir_stats(mes_archives)
+        Afficher_Trace_Missions(mes_archives, 30)
         println("Planification terminée. Les robots ont évité les collisions.")
 
         println("\nLancement de la phase de retour au Parking en fin de mission")

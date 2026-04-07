@@ -138,6 +138,21 @@ function reunir_stats(archives_missions)
     println("-"^((length(ids)*5)+15))
 end
 
+function Afficher_Trace_Missions(archives_missions, n_missions = length(archives_missions))
+    println("\n" * "="^60)
+    println("TRACE CHRONOLOGIQUE DES MISSIONS (CONFORME ÉNONCÉ)")
+    println("="^60)
+    for i in 1:min(n_missions, length(archives_missions))
+        m = archives_missions[i]
+        
+        t_dep = m.trajet_detaille[1].t
+        t_arr = m.trajet_detaille[end].t
+        id_r = m.id_robot
+        q = m.quai_final
+        println("Mission $i | AMR $id_r | [T=$t_dep] ➔ [T=$t_arr] | Quai $q | Durée: $(m.duree)")
+    end
+    println("\n" * "="^60)
+end
 
 function mission_retour_parking(liste_agents, positions_initiales, carte, G_dict, intervalles_dict, temps_fin_robots)
     for i in eachindex(liste_agents)

@@ -9,7 +9,8 @@ Pour lancer la simulation et afficher le bilan statistique :
 
 - Ouvrez Julia dans le dossier racine du projet.
 
-- Exécutez la commande suivante : Julia include("src/main.jl")
+- Exécutez la commande suivante : Julia  Puis
+include("src/main.jl")
 
 --------------------------------------------------------------------------------------------------------------------
 
