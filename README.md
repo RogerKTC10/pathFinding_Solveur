@@ -42,9 +42,8 @@ Aussi on a accordé une attention particuliere à la gestion de collision en vue
 
 --------------------------------------------------------------------------------------------------------------------
 ### Le projet comporte une documentation dans le dossier doc/ qui explique mes idées et la logique te travail suivie.
-NB : 
-    Dans le main, j'ai laissé celle de la partie 2, directement exécutable. Si vous voulez exécuter la partie 1, Faire 2 choses:
-    * Mettre en commentaire la partie main de la partie 2
-    * Puis décommenter le code en bas correspondant à la partie 1
+NB : Dans le main, j'ai laissé celle de la partie 2, directement exécutable. Si vous voulez exécuter la partie 1, Faire 2 choses:
+### Mettre en commentaire la partie main de la partie 2
+### Puis décommenter le code en bas correspondant à la partie 1
     les "###" sont lancer l'affichage markdown sur github
 --------------------------------------------------------------------------------------------------------------------
